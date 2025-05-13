@@ -44,6 +44,8 @@ This project is licensed under an MIT license. See [LICENSE.md](LICENSE.md) for 
 ## Authors
 
 - Ryuu ([@ryuudotgg](https://github.com/ryuudotgg))
+- Theo ([@t3dotgg](https://github.com/t3dotgg))
+  - Ryuu's Search is based on Und\*ck.
 
 ## Security
 
