@@ -1,6 +1,7 @@
 {
   "name": "search",
   "type": "module",
+  "packageManager": "pnpm@10.10.0",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
@@ -13,7 +14,6 @@
     "typescript": "~5.7.2",
     "vite": "^6.1.0"
   },
-  "packageManager": "pnpm@10.10.0",
   "engines": {
     "node": ">=22.15.0",
     "pnpm": "^10.10.0"
