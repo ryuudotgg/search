@@ -1,8 +1,18 @@
-import { SearchBar } from "./components/SearchBar";
-import { Logo } from "./components/Logo";
-import { Footer } from "./components/Footer";
+import { SearchBar } from "../components/search-bar";
+import { Logo } from "../components/logo";
+import { Footer } from "../components/footer";
+import { createFileRoute } from "@tanstack/react-router";
+import { Layout } from "~/layout";
 
-export function Home() {
+export const Route = createFileRoute("/")({
+  component: () => (
+    <Layout>
+      <Home />
+    </Layout>
+  ),
+});
+
+function Home() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center px-4">
       <div className="z-10 w-full max-w-4xl mx-auto flex flex-col items-center space-y-8 py-12">

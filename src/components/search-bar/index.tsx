@@ -8,7 +8,7 @@ import { Button } from "src/components/ui/button";
 import { Input } from "src/components/ui/input";
 import { Form, FormControl, FormField, FormItem } from "src/components/ui/form";
 import { shortcuts } from "./shortcuts";
-import { useNavigate } from "react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 const searchSchema = z.object({
   query: z.string().trim().min(1, "You need to enter a query."),
@@ -46,7 +46,7 @@ export function SearchBar() {
   }, [query]);
 
   const onSubmit = (values: SearchSchema) => {
-    navigate(`/search?q=${encodeURIComponent(values.query)}`);
+    navigate({ to: "/search", search: { q: values.query } });
   };
 
   return (
