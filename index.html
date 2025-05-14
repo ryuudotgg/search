@@ -3,14 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      defer
-      src="https://cloud.umami.is/script.js"
-      data-website-id="c4467123-afe2-4d2b-be52-ab6dd4b37393"
-    ></script>
     <title>Ryuu's Search</title>
+    <script>
+      (function () {
+        const storageKey = "ryuu-theme";
+        const theme = localStorage.getItem(storageKey);
+
+        if (theme === "dark" || theme === "light")
+          document.documentElement.classList.add(theme);
+        else {
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+            .matches
+            ? "dark"
+            : "light";
+
+          document.documentElement.classList.add(systemTheme);
+        }
+      })();
+    </script>
   </head>
-  <body style="background: #121212">
-    <script type="module" src="/src/main.ts"></script>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>
