@@ -1,27 +1,39 @@
 {
   "compilerOptions": {
-    /** Base Options */
-    "skipLibCheck": true,
+    /* Basic Options */
     "target": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-
-    /* Bundler Mode */
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
 
-    /** Strictness */
+    /* Module Resolution Options */
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "types": ["node", "vite/client"],
+    "rootDirs": ["."],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+
+    /* Bundler/Build Options */
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+
+    /* Type Checking Options */
     "strict": true,
+    "skipLibCheck": true,
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
 
-    /* Linting */
+    /* Linting Options */
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src"],
+  "include": ["**/*"],
   "exclude": ["dist", "node_modules"]
 }
