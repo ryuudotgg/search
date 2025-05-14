@@ -35,6 +35,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-link: var(--link);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -81,6 +82,7 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  --link: oklch(0.6608 0.183563 254.685);
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
