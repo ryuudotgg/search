@@ -1,0 +1,58 @@
+name: Snyk
+
+on:
+  pull_request:
+    branches: ["*"]
+
+  push:
+    branches: ["main" ]
+
+  merge_group:
+
+permissions:
+  contents: read
+
+jobs:
+  snyk:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    environment: Code Scanning
+    env:
+      SNYK_ORG: ${{ secrets.SNYK_ORG }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Snyk CLI
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        shell: bash
+        run: pnpm install --frozen-lockfile
+
+      - name: Set Snyk Organization
+        run: snyk config set org=$SNYK_ORG
+
+      - name: Run Code Scan
+        run: snyk code test --all-projects --sarif > snyk.sarif
+
+      - name: Run Monitor
+        run: snyk monitor --all-projects
+
+      - name: Upload Results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
