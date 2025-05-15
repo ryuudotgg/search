@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Article from "../components/article";
-import PrivacyMDX from "../content/privacy.mdx";
 import { components } from "../components/article/components";
+import PrivacyMDX from "../content/privacy.mdx";
 
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPolicy,

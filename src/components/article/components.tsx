@@ -3,7 +3,7 @@ import type { MDXComponents } from "mdx/types";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { cn } from "~/lib/utils";
-import { type MDXDepth } from "~/plugins/remark-generate-toc";
+import type { MDXDepth } from "~/plugins/remark-generate-toc";
 
 export const components: MDXComponents = {
   toc: (props) => (
@@ -29,9 +29,7 @@ export const components: MDXComponents = {
       style={{ marginLeft: `${props.level * 12}px` }}
     />
   ),
-  block: (
-    props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  ) => {
+  block: (props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
     const row = (("index" in props && Number(props.index)) || 0) + 1;
 
     const depth =
@@ -50,9 +48,8 @@ export const components: MDXComponents = {
                 depth === 2,
             },
             {
-              "border-border border-t border-dashed":
-                !("index" in props) || props.index !== "0",
-            }
+              "border-border border-t border-dashed": !("index" in props) || props.index !== "0",
+            },
           )}
           style={
             {
@@ -123,9 +120,7 @@ export const components: MDXComponents = {
       </>
     );
   },
-  list: (props) => (
-    <div {...props} className="ml-6" style={{ height: "auto" }} />
-  ),
+  list: (props) => <div {...props} className="ml-6" style={{ height: "auto" }} />,
   item: (props: { index: string; children: React.ReactNode }) => (
     <p
       {...props}
@@ -137,8 +132,7 @@ export const components: MDXComponents = {
         } as React.CSSProperties
       }
     >
-      <strong className="text-foreground font-medium">{props.index}</strong>.{" "}
-      {props.children}
+      <strong className="text-foreground font-medium">{props.index}</strong>. {props.children}
     </p>
   ),
   h2: (props) => (
@@ -213,10 +207,6 @@ export const components: MDXComponents = {
       }
     />
   ),
-  strong: (props) => (
-    <strong {...props} className="text-foreground font-medium" />
-  ),
-  a: ({ href, ...props }) => (
-    <Link to={href} {...props} className="text-link" />
-  ),
+  strong: (props) => <strong {...props} className="text-foreground font-medium" />,
+  a: ({ href, ...props }) => <Link to={href} {...props} className="text-link" />,
 };

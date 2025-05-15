@@ -4,10 +4,11 @@
   "packageManager": "pnpm@10.11.0",
   "scripts": {
     "build": "vite build",
+    "check": "biome check .",
+    "check:fix": "bun run check --write",
     "dev": "vite",
     "prepare": "husky",
-    "preview": "vite preview",
-    "typecheck": "tsc"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -35,6 +36,7 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@commitlint/types": "^19.8.1",

@@ -1,6 +1,6 @@
-import { GitHub } from "./icons/GitHub";
-import { DuckDuckGo } from "./icons/DuckDuckGo";
 import { Search } from "lucide-react";
+import { DuckDuckGo } from "./icons/DuckDuckGo";
+import { GitHub } from "./icons/GitHub";
 import { Google } from "./icons/Google";
 import { Wikipedia } from "./icons/Wikipedia";
 import { YouTube } from "./icons/YouTube";
