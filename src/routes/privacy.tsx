@@ -5,7 +5,7 @@ import PrivacyMDX from "../content/privacy.mdx";
 
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPolicy,
-  head: () => ({ meta: [{ title: "Privacy Policy - Ryuu's Search" }] }),
+  head: () => ({ meta: [{ title: "Privacy Policy" }] }),
 });
 
 function PrivacyPolicy() {
