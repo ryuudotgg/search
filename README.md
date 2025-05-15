@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="LICENSE.md">
-    <img src="https://img.shields.io/github/license/ryuudotgg/create-ryuu-app?style=for-the-badge&labelColor=000000" alt="MIT License">
+    <img src="https://img.shields.io/github/license/ryuudotgg/search?style=for-the-badge&labelColor=000000" alt="MIT License">
   </a>
   <a href="https://discord.gg/YaarU42KxQ">
     <img src="https://img.shields.io/discord/1131068064637649048?style=for-the-badge&labelColor=000000&color=5865F2&label=Discord" alt="Discord Community">

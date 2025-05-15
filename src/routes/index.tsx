@@ -1,8 +1,8 @@
-import { SearchBar } from "../components/search-bar";
-import { Logo } from "../components/logo";
-import { Footer } from "../components/footer";
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "~/layout";
+import { Footer } from "../components/footer";
+import { Logo } from "../components/logo";
+import { SearchBar } from "../components/search-bar";
 
 export const Route = createFileRoute("/")({
   component: () => (
