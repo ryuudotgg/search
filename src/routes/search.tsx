@@ -1,8 +1,8 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
-import { useEffect, cache } from "react";
+import { cache, useEffect } from "react";
+import { z } from "zod";
 import { commonBangs } from "../lib/common-bangs";
 import type { Bang } from "../lib/common-bangs";
-import { z } from "zod";
 
 const DEFAULT_BANG = localStorage.getItem("ryuu-bang") ?? "ddg";
 
@@ -29,28 +29,23 @@ function Search() {
 
   async function getBangFromQuery(query: string): Promise<Bang> {
     const match = query.match(BANG_REGEX);
-
     const bangCandidate = match?.[1]?.toLowerCase();
 
-    let bang: Bang | undefined;
-    if (bangCandidate) {
-      bang = commonBangs.find((b) => b.t === bangCandidate);
-
-      if (!bang) {
-        const fullBangs = await loadFullBangs();
-        bang = fullBangs.find((b) => b.t === bangCandidate);
-      }
-    }
+    let bang = bangCandidate
+      ? commonBangs.find((b) => b.t === bangCandidate)
+      : commonBangs.find((b) => b.t === DEFAULT_BANG);
 
     if (!bang) {
-      let defaultBang = commonBangs.find((bang) => bang.t === DEFAULT_BANG);
-      if (!defaultBang) {
-        const fullBangs = await loadFullBangs();
-        defaultBang = fullBangs.find((b) => b.t === DEFAULT_BANG);
-      }
+      const fullBangs = await loadFullBangs();
 
-      bang = commonBangs[0]!;
+      bang = bangCandidate
+        ? fullBangs.find((b) => b.t === bangCandidate)
+        : fullBangs.find((b) => b.t === DEFAULT_BANG);
+
+      if (!bang) bang = commonBangs[0] ?? fullBangs[0];
     }
+
+    if (!bang) throw new Error("Missing Bang");
 
     return bang;
   }
@@ -71,7 +66,7 @@ function Search() {
 
     const searchUrl = bang.u.replace(
       "{{{s}}}",
-      encodeURIComponent(cleanQuery).replace(/%2F/g, "/")
+      encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
     );
 
     if (!searchUrl) return null;
@@ -90,6 +85,7 @@ function Search() {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     run();
   }, [query]);

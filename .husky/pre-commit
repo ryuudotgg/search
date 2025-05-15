@@ -1,0 +1,2 @@
+pnpm check:fix --staged --no-errors-on-unmatched
+git update-index --again

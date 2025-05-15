@@ -45,7 +45,8 @@ function visitCallback(node: Record<string, unknown>) {
   });
 
   if (depth > 3) return;
-  else return result;
+
+  return result;
 }
 
 function createList(headings: Heading[], level = 0): BlockContent {
@@ -73,12 +74,10 @@ function createList(headings: Heading[], level = 0): BlockContent {
               {
                 type: "text",
                 value: heading.text,
-              } as any,
+              } as unknown as BlockContent,
             ],
           },
-          ...(heading.children?.length
-            ? [createList(heading.children, level + 1)]
-            : []),
+          ...(heading.children?.length ? [createList(heading.children, level + 1)] : []),
         ],
       };
     }),
@@ -94,9 +93,7 @@ export const remarkGenerateToC: Plugin<[], Root> = () => {
 
       if (result) {
         const parentIndex = result.index.split(".").slice(0, -1).join(".");
-        const parent = headings.find(
-          (heading) => heading.index === parentIndex
-        );
+        const parent = headings.find((heading) => heading.index === parentIndex);
 
         if (parent) {
           parent.children ??= [];
@@ -117,8 +114,7 @@ export const remarkGenerateToC: Plugin<[], Root> = () => {
             {
               type: "mdxJsxAttribute",
               name: "className",
-              value:
-                "sticky top-4 h-full max-h-[calc(100svh-4rem)] overflow-y-scroll p-10 md:p-12",
+              value: "sticky top-4 h-full max-h-[calc(100svh-4rem)] overflow-y-scroll p-10 md:p-12",
             },
           ],
           children: [
@@ -136,7 +132,7 @@ export const remarkGenerateToC: Plugin<[], Root> = () => {
                 {
                   type: "text",
                   value: "On this page",
-                } as any,
+                } as unknown as BlockContent,
               ],
             },
             createList(headings),

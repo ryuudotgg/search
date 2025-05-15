@@ -20,16 +20,13 @@ export default function Article({ title, lastUpdatedAt, children }: Props) {
               "--sm-grid-columns": 8,
               "--smd-grid-columns": 10,
               "--md-grid-columns": 12,
-              "--sm-height":
-                "calc(var(--width) / var(--grid-columns) * var(--grid-rows))",
+              "--sm-height": "calc(var(--width) / var(--grid-columns) * var(--grid-rows))",
             } as React.CSSProperties
           }
         >
           <div
             className="grid-cross"
-            style={
-              { "--cross-row": 1, "--cross-column": 1 } as React.CSSProperties
-            }
+            style={{ "--cross-row": 1, "--cross-column": 1 } as React.CSSProperties}
           >
             <div
               className="grid-crossline"
@@ -127,8 +124,7 @@ export default function Article({ title, lastUpdatedAt, children }: Props) {
                 "--sm-grid-columns": 8,
                 "--smd-grid-columns": 10,
                 "--md-grid-columns": 12,
-                "--sm-height":
-                  "calc(var(--width) / var(--grid-columns) * var(--grid-rows))",
+                "--sm-height": "calc(var(--width) / var(--grid-columns) * var(--grid-rows))",
               } as React.CSSProperties
             }
           >
