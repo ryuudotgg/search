@@ -16,9 +16,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
 
-    mdx({
-      remarkPlugins: [remarkDirective, remarkDirectiveRehype, remarkGenerateToC],
-    }),
+    mdx({ remarkPlugins: [remarkDirective, remarkDirectiveRehype, remarkGenerateToC] }),
 
     tsconfigPaths(),
 
