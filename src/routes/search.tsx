@@ -62,8 +62,6 @@ function Search() {
     const bang = await getBangFromQuery(searchQuery);
 
     const cleanQuery = searchQuery.replace(BANG_REPLACEMENT_REGEX, "").trim();
-    if (cleanQuery === "") return redirectToHome();
-
     const searchUrl = bang.u.replace(
       "{{{s}}}",
       encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
