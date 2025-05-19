@@ -10,7 +10,7 @@ const BANG_REGEX = /!(\S+)/i;
 const BANG_REPLACEMENT_REGEX = /!\S+\s*/i;
 
 const loadFullBangs = cache(async (): Promise<Bang[]> => {
-  const { bangs } = await import("../lib/bang");
+  const { bangs } = await import("../lib/bangs");
   return bangs;
 });
 
@@ -60,16 +60,21 @@ function Search() {
     if (!searchQuery) return redirectToHome();
 
     const bang = await getBangFromQuery(searchQuery);
+    const fallbackUrl = `https://${bang.d}`;
 
     const cleanQuery = searchQuery.replace(BANG_REPLACEMENT_REGEX, "").trim();
-    const searchUrl = bang.u.replace(
-      "{{{s}}}",
-      encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
-    );
+    if (cleanQuery) {
+      const searchUrl = bang.u.replace(
+        "{{{s}}}",
+        encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
+      );
 
-    if (!searchUrl) return null;
+      if (!searchUrl) return fallbackUrl;
 
-    return searchUrl;
+      return searchUrl;
+    }
+
+    return fallbackUrl;
   }
 
   async function run(): Promise<void> {

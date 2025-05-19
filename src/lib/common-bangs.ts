@@ -9,7 +9,7 @@ export interface Bang {
 export const commonBangs: Bang[] = [
   {
     d: "duckduckgo.com",
-    u: "http://duckduckgo.com/?q={{{s}}}",
+    u: "https://duckduckgo.com/?q={{{s}}}",
     t: "ddg",
   },
   {
