@@ -103,7 +103,7 @@ importers:
         specifier: ^2.0.13
         version: 2.0.13
       '@types/node':
-        specifier: ^22.15.18
+        specifier: ^22.15.19
         version: 22.15.19
       '@types/react':
         specifier: ^19.1.4
