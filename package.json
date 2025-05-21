@@ -44,7 +44,7 @@
     "@tanstack/router-plugin": "^1.120.5",
     "@types/mdast": "^4.0.4",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^22.15.19",
+    "@types/node": "^22.15.21",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "husky": "^9.1.7",
@@ -56,7 +56,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "engines": {
-    "node": "22.15.1",
+    "node": "22.16.0",
     "pnpm": "^10.11.0"
   }
 }
