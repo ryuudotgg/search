@@ -1,1 +1,1 @@
-{ "recommendations": ["biomejs.biome", "yoavbls.pretty-ts-errors"] }
+{ "recommendations": ["antfu.pnpm-catalog-lens", "biomejs.biome", "yoavbls.pretty-ts-errors"] }
