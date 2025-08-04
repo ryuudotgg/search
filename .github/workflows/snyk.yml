@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Setup Snyk CLI
-        uses: snyk/actions/setup@28606799782bc8e809f4076e9f8293bc4212d05e
+        uses: snyk/actions/setup@77490d94e966421e076e95ad8fa87aa55e5ca409
 
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
