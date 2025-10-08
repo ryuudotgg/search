@@ -28,7 +28,7 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Setup Snyk CLI
         uses: snyk/actions/setup@28606799782bc8e809f4076e9f8293bc4212d05e
