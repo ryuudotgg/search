@@ -11,7 +11,7 @@ catalogs:
     "@mdx-js/rollup": ^3.1.0
 
     # Tailwind CSS Build
-    "@tailwindcss/vite": ^4.1.7
+    "@tailwindcss/vite": ^4.1.18
 
   # ===== DEVELOPMENT TOOLS =====
   dev:
@@ -75,7 +75,7 @@ catalogs:
   # ===== STYLING =====
   style:
     # Tailwind CSS
-    tailwindcss: ^4.1.7
+    tailwindcss: ^4.1.18
     tailwind-merge: ^3.3.0
 
     # Animation
