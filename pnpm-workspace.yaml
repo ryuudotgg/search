@@ -93,7 +93,7 @@ catalogs:
   # ===== TYPE DEFINITIONS =====
   types:
     # Node & Core Types
-    "@types/node": ^22.19.3
+    "@types/node": ^24.10.4
     "@types/react": ^19.1.5
     "@types/react-dom": ^19.1.5
 
