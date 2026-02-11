@@ -16,7 +16,7 @@ catalogs:
   # ===== DEVELOPMENT TOOLS =====
   dev:
     # TypeScript & Compilation
-    typescript: ~5.8.3
+    typescript: ~5.9.3
 
     # Routing Development
     "@tanstack/router-plugin": ^1.120.11
