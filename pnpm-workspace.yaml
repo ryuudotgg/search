@@ -70,7 +70,7 @@ catalogs:
 
   # ===== ICONS =====
   icons:
-    lucide-react: ^0.511.0
+    lucide-react: ^0.575.0
 
   # ===== STYLING =====
   style:
