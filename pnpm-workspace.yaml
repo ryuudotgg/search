@@ -76,7 +76,7 @@ catalogs:
   style:
     # Tailwind CSS
     tailwindcss: ^4.1.18
-    tailwind-merge: ^3.3.0
+    tailwind-merge: ^3.5.0
 
     # Animation
     tw-animate-css: ^1.3.0
