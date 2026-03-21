@@ -9,7 +9,7 @@
     "platformAutomerge": true
   },
   "osvVulnerabilityAlerts": true,
-  "rangeStrategy": "bump",
+  "rangeStrategy": "auto",
   "rebaseWhen": "behind-base-branch",
   "reviewers": ["ryuudotgg"],
   "vulnerabilityAlerts": {
