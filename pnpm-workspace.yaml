@@ -4,7 +4,7 @@ catalogs:
     # Vite & Build Tools
     vite: ^6.4.1
     "@vitejs/plugin-react": ^4.5.0
-    vite-plugin-pwa: ^1.0.0
+    vite-plugin-pwa: ^1.2.0
     vite-tsconfig-paths: ^5.1.4
 
     # MDX & Content Processing
