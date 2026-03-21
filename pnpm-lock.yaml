@@ -108,7 +108,7 @@ catalogs:
       specifier: ^4.1.18
       version: 4.1.18
     tw-animate-css:
-      specifier: ^1.3.0
+      specifier: ^1.4.0
       version: 1.4.0
   types:
     '@types/mdast':
