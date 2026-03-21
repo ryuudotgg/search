@@ -86,8 +86,8 @@ catalogs:
       specifier: ^19.2.4
       version: 19.2.4
     react-hook-form:
-      specifier: ^7.56.4
-      version: 7.69.0
+      specifier: ^7.71.2
+      version: 7.71.2
     remark-directive:
       specifier: ^4.0.0
       version: 4.0.0
@@ -143,7 +143,7 @@ importers:
     dependencies:
       '@hookform/resolvers':
         specifier: catalog:prod
-        version: 5.2.2(react-hook-form@7.69.0(react@19.2.4))
+        version: 5.2.2(react-hook-form@7.71.2(react@19.2.4))
       '@mdx-js/rollup':
         specifier: catalog:build
         version: 3.1.1(rollup@4.54.0)
@@ -188,7 +188,7 @@ importers:
         version: 19.2.4(react@19.2.4)
       react-hook-form:
         specifier: catalog:prod
-        version: 7.69.0(react@19.2.4)
+        version: 7.71.2(react@19.2.4)
       remark-directive:
         specifier: catalog:prod
         version: 4.0.0
@@ -3292,8 +3292,8 @@ packages:
     peerDependencies:
       react: ^19.2.4
 
-  react-hook-form@7.69.0:
-    resolution: {integrity: sha512-yt6ZGME9f4F6WHwevrvpAjh42HMvocuSnSIHUGycBqXIJdhqGSPQzTpGF+1NLREk/58IdPxEMfPcFCjlMhclGw==}
+  react-hook-form@7.71.2:
+    resolution: {integrity: sha512-1CHvcDYzuRUNOflt4MOq3ZM46AronNJtQ1S7tnX6YN4y72qhgiUItpacZUAQ0TyWYci3yz1X+rXaSxiuEm86PA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -5007,10 +5007,10 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@hookform/resolvers@5.2.2(react-hook-form@7.69.0(react@19.2.4))':
+  '@hookform/resolvers@5.2.2(react-hook-form@7.71.2(react@19.2.4))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.69.0(react@19.2.4)
+      react-hook-form: 7.71.2(react@19.2.4)
 
   '@isaacs/balanced-match@4.0.1': {}
 
@@ -7294,7 +7294,7 @@ snapshots:
       react: 19.2.4
       scheduler: 0.27.0
 
-  react-hook-form@7.69.0(react@19.2.4):
+  react-hook-form@7.71.2(react@19.2.4):
     dependencies:
       react: 19.2.4
 

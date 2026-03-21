@@ -48,7 +48,7 @@ catalogs:
     "@tanstack/react-router-devtools": ^1.120.11
 
     # Forms & Validation
-    react-hook-form: ^7.56.4
+    react-hook-form: ^7.71.2
     "@hookform/resolvers": ^5.2.2
 
     # UI Components & Libraries
