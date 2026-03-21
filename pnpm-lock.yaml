@@ -13,7 +13,7 @@ catalogs:
       specifier: ^4.1.18
       version: 4.1.18
     '@vitejs/plugin-react':
-      specifier: ^4.5.0
+      specifier: ^4.7.0
       version: 4.7.0
     vite:
       specifier: ^6.4.1
