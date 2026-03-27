@@ -1,8 +1,8 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { cache, useEffect } from "react";
 import { z } from "zod";
-import { commonBangs } from "../lib/common-bangs";
 import type { Bang } from "../lib/common-bangs";
+import { commonBangs } from "../lib/common-bangs";
 
 const DEFAULT_BANG = localStorage.getItem("ryuu-bang") ?? "ddg";
 
@@ -88,7 +88,6 @@ function Search() {
     }
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     run();
   }, [query]);

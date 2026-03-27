@@ -164,7 +164,10 @@
     --cell-padding: 48px;
     --height: var(--lg-height, var(--md-height, var(--smd-height, var(--sm-height))));
     --grid-divider-gap: calc(140px - var(--cell-padding));
-    --grid-rows: var(--lg-grid-rows, var(--md-grid-rows, var(--smd-grid-rows, var(--sm-grid-rows))));
+    --grid-rows: var(
+      --lg-grid-rows,
+      var(--md-grid-rows, var(--smd-grid-rows, var(--sm-grid-rows)))
+    );
     --grid-columns: var(
       --lg-grid-columns,
       var(--md-grid-columns, var(--smd-grid-columns, var(--sm-grid-columns)))
@@ -172,7 +175,10 @@
   }
 
   .grid-cross {
-    --cross-row: var(--lg-cross-row, var(--md-cross-row, var(--smd-cross-row, var(--sm-cross-row))));
+    --cross-row: var(
+      --lg-cross-row,
+      var(--md-cross-row, var(--smd-cross-row, var(--sm-cross-row)))
+    );
     --cross-column: var(
       --lg-cross-column,
       var(--md-cross-column, var(--smd-cross-column, var(--sm-cross-column)))
@@ -185,7 +191,10 @@
       --lg-grid-column,
       var(--md-grid-column, var(--smd-grid-column, var(--sm-grid-column)))
     );
-    --cell-rows: var(--lg-cell-rows, var(--md-cell-rows, var(--smd-cell-rows, var(--sm-cell-rows))));
+    --cell-rows: var(
+      --lg-cell-rows,
+      var(--md-cell-rows, var(--smd-cell-rows, var(--sm-cell-rows)))
+    );
     --cell-columns: var(
       --lg-cell-columns,
       var(--md-cell-columns, var(--smd-cell-columns, var(--sm-cell-columns)))
