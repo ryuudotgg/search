@@ -88,7 +88,7 @@ catalogs:
     clsx: ^2.1.1
 
     # Validation
-    zod: ^3.25.76
+    zod: ^4.0.0
 
   # ===== TYPE DEFINITIONS =====
   types:
