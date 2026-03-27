@@ -19,7 +19,7 @@ jobs:
     if: github.repository_owner == 'ryuudotgg'
 
     steps:
-      - uses: dessant/lock-threads@v5
+      - uses: dessant/lock-threads@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
