@@ -18758,7 +18758,7 @@ export const bangs = [
   },
   {
     d: "stockflare.com",
-    u: "https://stockflare.com/#stocks/${{{s}}} ",
+    u: "https://stockflare.com/#stocks/\u0024{{{s}}}",
     t: "$",
   },
   {

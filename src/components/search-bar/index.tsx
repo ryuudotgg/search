@@ -40,7 +40,7 @@ export function SearchBar() {
         : undefined
     ) as (typeof shortcuts)[number] | undefined;
 
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    // biome-ignore lint/style/noNonNullAssertion: shortcuts is non-empty (see shortcuts[0] above), so last index always exists
     setActiveShortcut(shortcutMatch ?? shortcuts[shortcuts.length - 1]!);
   }, [query]);
 
