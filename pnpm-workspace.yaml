@@ -3,7 +3,7 @@ catalogs:
   build:
     # Vite & Build Tools
     vite: ^8.0.0
-    "@vitejs/plugin-react": ^4.7.0
+    "@vitejs/plugin-react": ^6.0.0
     vite-plugin-pwa: ^1.2.0
     vite-tsconfig-paths: ^5.1.4
 
