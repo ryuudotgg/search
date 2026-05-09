@@ -8,10 +8,12 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({ meta: [{ title: "Privacy Policy" }] }),
 });
 
+const lastUpdatedAt = new Date();
+
 function PrivacyPolicy() {
   return (
     <div className="relative min-h-screen">
-      <Article title="Privacy Policy" lastUpdatedAt={new Date()}>
+      <Article title="Privacy Policy" lastUpdatedAt={lastUpdatedAt}>
         <PrivacyMDX components={components} />
       </Article>
     </div>

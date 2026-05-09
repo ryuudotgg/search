@@ -2,7 +2,7 @@ import type { BlockContent, Root } from "mdast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-export interface Heading {
+interface Heading {
   id: string;
   index: string;
   text: string;
