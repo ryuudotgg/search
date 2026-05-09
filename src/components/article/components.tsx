@@ -135,7 +135,7 @@ export const components: MDXComponents = {
       <strong className="text-foreground font-medium">{props.index}</strong>. {props.children}
     </p>
   ),
-  h2: (props) => (
+  h2: ({ children, ...props }) => (
     <h2
       {...props}
       className="text-wrapper mb-6"
@@ -153,9 +153,11 @@ export const components: MDXComponents = {
           "--lg-text-letter-spacing": "-0.049375rem",
         } as React.CSSProperties
       }
-    />
+    >
+      {children}
+    </h2>
   ),
-  h3: (props) => (
+  h3: ({ children, ...props }) => (
     <h3
       {...props}
       className="text-wrapper mb-6"
@@ -173,9 +175,11 @@ export const components: MDXComponents = {
           "--lg-text-letter-spacing": "-0.029375rem",
         } as React.CSSProperties
       }
-    />
+    >
+      {children}
+    </h3>
   ),
-  h4: (props) => (
+  h4: ({ children, ...props }) => (
     <h4
       {...props}
       className="text-wrapper text-muted-foreground mb-6"
@@ -193,7 +197,9 @@ export const components: MDXComponents = {
           "--lg-text-letter-spacing": "-0.020625rem",
         } as React.CSSProperties
       }
-    />
+    >
+      {children}
+    </h4>
   ),
   p: (props) => (
     <p

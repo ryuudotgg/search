@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="z-10 w-full max-w-4xl mx-auto flex flex-col items-center space-y-8 py-12">
+      <div className="z-10 w-full max-w-4xl mx-auto flex flex-col items-center gap-y-8 py-12">
         <div className="animate-fade-in space-y-2">
           <Logo />
 

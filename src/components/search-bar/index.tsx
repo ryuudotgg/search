@@ -88,7 +88,7 @@ export function SearchBar() {
               "focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-custom-accent",
             )}
           >
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight className="size-5" />
             <span className="sr-only">Search</span>
           </Button>
         </div>

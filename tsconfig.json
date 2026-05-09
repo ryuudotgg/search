@@ -11,9 +11,9 @@
     "resolveJsonModule": true,
     "types": ["node", "vite/client"],
     "rootDirs": ["."],
-    "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "src/*": ["./src/*"]
     },
 
     /* Bundler/Build Options */
