@@ -4,31 +4,9 @@ import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { cn } from "~/lib/utils";
 import type { MDXDepth } from "~/plugins/remark-generate-toc";
+import { Cross } from "../cross";
 
 export const components: MDXComponents = {
-  toc: (props) => (
-    <div
-      {...props}
-      className="grid-block"
-      style={
-        {
-          "--sm-grid-row": `1 / ${Number(props.length) + 1}`,
-          "--sm-grid-column": 3,
-          "--sm-cell-rows": Number(props.length) + 1,
-          padding: "0px",
-          overflow: "visible",
-        } as React.CSSProperties
-      }
-    />
-  ),
-  tocItem: (props) => (
-    <Link
-      {...props}
-      hash={props.id}
-      className="text-muted-foreground hover:text-foreground ml-3 block text-sm no-underline transition-colors duration-150 ease-in"
-      style={{ marginLeft: `${props.level * 12}px` }}
-    />
-  ),
   block: (props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
     const row = (("index" in props && Number(props.index)) || 0) + 1;
 
@@ -37,19 +15,17 @@ export const components: MDXComponents = {
       typeof props.index === "string" &&
       ((props.index.split(".").length + 1) as MDXDepth);
 
+    const isFirstBlock = "index" in props && props.index === "0";
+
     return (
       <>
         <div
           {...props}
           className={cn(
             "grid-block relative",
-            {
-              "before:border-border before:absolute before:top-0 before:bottom-0 before:left-1/2 before:-z-10 before:-translate-x-1/2 before:border-l before:border-dashed":
-                depth === 2,
-            },
-            {
-              "border-border border-t border-dashed": !("index" in props) || props.index !== "0",
-            },
+            depth === 2 &&
+              "before:border-border before:absolute before:top-0 before:bottom-0 before:left-1/2 before:-z-10 before:-translate-x-1/2 before:border-l before:border-dashed",
+            !isFirstBlock && "border-border border-t border-dashed",
           )}
           style={
             {
@@ -60,61 +36,10 @@ export const components: MDXComponents = {
             } as React.CSSProperties
           }
         />
-        {depth === 2 && (
+        {depth === 2 && !isFirstBlock && (
           <>
-            <div
-              className="grid-cross"
-              style={
-                {
-                  "--cross-row": row,
-                  "--cross-column": 1,
-                } as React.CSSProperties
-              }
-            >
-              <div
-                className="grid-crossline"
-                style={{
-                  width: "var(--cross-half-size)",
-                  height: "var(--cross-size)",
-                  borderRightWidth: "1px",
-                }}
-              />
-              <div
-                className="grid-crossline"
-                style={{
-                  width: "var(--cross-size)",
-                  height: "var(--cross-half-size)",
-                  borderBottomWidth: "1px",
-                }}
-              />
-            </div>
-            <div
-              className="grid-cross"
-              style={
-                {
-                  "--cross-row": row,
-                  "--sm-cross-column": 1,
-                  "--md-cross-column": 3,
-                } as React.CSSProperties
-              }
-            >
-              <div
-                className="grid-crossline"
-                style={{
-                  width: "var(--cross-half-size)",
-                  height: "var(--cross-size)",
-                  borderRightWidth: "1px",
-                }}
-              />
-              <div
-                className="grid-crossline"
-                style={{
-                  width: "var(--cross-size)",
-                  height: "var(--cross-half-size)",
-                  borderBottomWidth: "1px",
-                }}
-              />
-            </div>
+            <Cross row={row} column={1} />
+            <Cross row={row} smColumn={2} mdColumn={3} />
           </>
         )}
       </>
@@ -132,7 +57,8 @@ export const components: MDXComponents = {
         } as React.CSSProperties
       }
     >
-      <strong className="text-foreground font-medium">{props.index}</strong>. {props.children}
+      <strong className="text-foreground font-mono font-medium">{props.index}</strong>.{" "}
+      {props.children}
     </p>
   ),
   h2: ({ children, ...props }) => (
@@ -144,13 +70,13 @@ export const components: MDXComponents = {
           "--text-weight": "600",
           "--sm-text-size": "1.5rem",
           "--sm-text-line-height": "2rem",
-          "--sm-text-letter-spacing": "-0.029375rem",
+          "--sm-text-letter-spacing": "-0.04em",
           "--md-text-size": "2rem",
           "--md-text-line-height": "2.5rem",
-          "--md-text-letter-spacing": "-0.049375rem",
+          "--md-text-letter-spacing": "-0.04em",
           "--lg-text-size": "2rem",
           "--lg-text-line-height": "2.5rem",
-          "--lg-text-letter-spacing": "-0.049375rem",
+          "--lg-text-letter-spacing": "-0.04em",
         } as React.CSSProperties
       }
     >
@@ -166,13 +92,13 @@ export const components: MDXComponents = {
           "--text-weight": "600",
           "--sm-text-size": "1.25rem",
           "--sm-text-line-height": "1.5rem",
-          "--sm-text-letter-spacing": "-0.020625rem",
+          "--sm-text-letter-spacing": "-0.04em",
           "--md-text-size": "1.5rem",
           "--md-text-line-height": "2rem",
-          "--md-text-letter-spacing": "-0.029375rem",
+          "--md-text-letter-spacing": "-0.04em",
           "--lg-text-size": "1.5rem",
           "--lg-text-line-height": "2rem",
-          "--lg-text-letter-spacing": "-0.029375rem",
+          "--lg-text-letter-spacing": "-0.04em",
         } as React.CSSProperties
       }
     >

@@ -1,14 +1,14 @@
 {
   "name": "search",
   "type": "module",
-  "packageManager": "pnpm@11.2.2",
   "scripts": {
     "build": "vite build",
     "check": "biome check .",
     "check:fix": "bun run check --write",
     "dev": "vite",
     "prepare": "husky",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
     "@hookform/resolvers": "catalog:prod",
@@ -22,6 +22,9 @@
     "@vitejs/plugin-react": "catalog:build",
     "class-variance-authority": "catalog:utils",
     "clsx": "catalog:utils",
+    "estree-util-value-to-estree": "catalog:prod",
+    "fumadocs-core": "catalog:prod",
+    "geist": "catalog:fonts",
     "lucide-react": "catalog:icons",
     "next-themes": "catalog:prod",
     "react": "catalog:prod",
@@ -53,8 +56,9 @@
     "typescript": "catalog:dev",
     "unified": "catalog:dev",
     "vite": "catalog:build",
-    "vite-tsconfig-paths": "catalog:build"
+    "vitest": "catalog:dev"
   },
+  "packageManager": "pnpm@11.2.2",
   "engines": {
     "node": "24.16.0",
     "pnpm": "^11.0.0"

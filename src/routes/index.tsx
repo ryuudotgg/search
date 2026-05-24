@@ -14,20 +14,17 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="z-10 w-full max-w-4xl mx-auto flex flex-col items-center gap-y-8 py-12">
-        <div className="animate-fade-in space-y-2">
+    <div className="flex min-h-svh flex-col">
+      <main className="animate-fade-in flex flex-1 flex-col items-center justify-center gap-10 px-4">
+        <div className="flex flex-col items-center gap-3 text-center">
           <Logo />
-
-          <div className="text-center space-y-2 max-w-xl mx-auto">
-            <h2 className="text-xl font-light text-foreground">
-              I'm faster than DuckDuckGo's Bangs.
-            </h2>
-          </div>
+          <p className="text-muted-foreground text-base sm:text-lg">
+            Search any engine, instantly.
+          </p>
         </div>
 
         <SearchBar />
-      </div>
+      </main>
 
       <Footer />
     </div>

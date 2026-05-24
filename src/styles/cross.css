@@ -1,0 +1,36 @@
+:root {
+  --cross-size: 21px;
+  --cross-half-size: calc((var(--cross-size) / 2) + 1px - 0.5px);
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --cross-size: 11px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 960px) {
+  :root {
+    --cross-size: 15px;
+  }
+}
+
+.grid-cross {
+  width: fit-content;
+  height: fit-content;
+  pointer-events: none;
+  position: absolute;
+  grid-column-start: var(--cross-column);
+  grid-row-start: var(--cross-row);
+  inset: calc(var(--cross-half-size) * -1);
+  z-index: 2;
+}
+
+.grid-crossline {
+  position: absolute;
+  border: 0 solid var(--cross-color, var(--border));
+}
+
+.article-frame {
+  --cross-color: var(--muted-foreground);
+}
