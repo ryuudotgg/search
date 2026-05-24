@@ -1,5 +1,5 @@
 <p align="center">
-  I'm faster than DuckDuckGo's Bangs
+  Search any engine, instantly.
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 
 ## What & Why?
 
-Ryuu's Search is a modern search utility designed to provide lightning-fast search capabilities. It offers a streamlined search experience that's more efficient than DuckDuckGo's Bangs.
+Ryuu's Search is a modern search utility designed to provide lightning-fast search capabilities. It offers a streamlined, keyboard-first way to search any engine instantly using bang shortcuts.
 
 ## Support
 

@@ -4,19 +4,19 @@ const currentYear = new Date().getFullYear();
 
 export function Footer() {
   return (
-    <footer className="w-full py-4 text-accent-foreground text-sm text-center absolute bottom-0 left-0 text-muted-foreground">
+    <footer className="text-muted-foreground w-full py-4 text-center font-mono text-xs tracking-[0.12em] uppercase">
       <p>
         &copy; {currentYear}{" "}
         <a
           href="https://ryuu.gg"
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-colors hover:text-foreground"
+          className="hover:text-foreground transition-colors"
         >
           Ryuu
         </a>
-        {" • "}
-        <Link to="/privacy" className="transition-colors hover:text-foreground">
+        {" · "}
+        <Link to="/privacy" className="hover:text-foreground transition-colors">
           Privacy Policy
         </Link>
       </p>

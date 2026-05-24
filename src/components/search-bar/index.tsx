@@ -3,12 +3,11 @@ import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "src/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
-import { cn } from "src/lib/utils";
 import { z } from "zod";
-import { shortcuts } from "./shortcuts";
+import { Cross } from "../cross";
+import { fallbackShortcut, getDefaultShortcut, type Shortcut, shortcuts } from "./shortcuts";
 
 const searchSchema = z.object({
   query: z.string().trim().min(1, "You need to enter a query."),
@@ -19,7 +18,8 @@ type SearchSchema = z.infer<typeof searchSchema>;
 export function SearchBar() {
   const navigate = useNavigate();
 
-  const [activeShortcut, setActiveShortcut] = useState<(typeof shortcuts)[number]>(shortcuts[0]);
+  const [defaultShortcut] = useState(getDefaultShortcut);
+  const [activeShortcut, setActiveShortcut] = useState<Shortcut>(defaultShortcut);
 
   const form = useForm<SearchSchema>({
     resolver: zodResolver(searchSchema),
@@ -29,20 +29,15 @@ export function SearchBar() {
   const query = form.watch("query");
   useEffect(() => {
     const match = query.match(/!(\S+)/i);
-    if (!match) return setActiveShortcut(shortcuts[0]);
+    if (!match) return setActiveShortcut(defaultShortcut);
 
     const bangCandidate = match[1]?.toLowerCase();
-    const shortcutMatch = (
-      bangCandidate
-        ? (shortcuts.find(
-            (shortcut) => shortcut.tag === bangCandidate,
-          ) as (typeof shortcuts)[number])
-        : undefined
-    ) as (typeof shortcuts)[number] | undefined;
+    const shortcutMatch = bangCandidate
+      ? shortcuts.find((shortcut) => shortcut.tag === bangCandidate)
+      : undefined;
 
-    // biome-ignore lint/style/noNonNullAssertion: shortcuts is non-empty (see shortcuts[0] above), so last index always exists
-    setActiveShortcut(shortcutMatch ?? shortcuts[shortcuts.length - 1]!);
-  }, [query]);
+    setActiveShortcut(shortcutMatch ?? fallbackShortcut);
+  }, [query, defaultShortcut]);
 
   const onSubmit = (values: SearchSchema) => {
     navigate({ to: "/search", search: { q: values.query } });
@@ -50,47 +45,53 @@ export function SearchBar() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full max-w-2xl transition-all duration-300 ease-in-out"
-      >
-        <div
-          className={cn(
-            "flex items-center px-4 h-14 rounded-full bg-accent transition-all duration-300 border border-transparent dark:bg-input/30",
-          )}
-        >
-          <div className="flex items-center justify-center size-8 mr-2">{activeShortcut.icon}</div>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xl">
+        <div className="relative">
+          <Cross corner="tl" />
+          <Cross corner="tr" />
+          <Cross corner="bl" />
+          <Cross corner="br" />
 
-          <FormField
-            name="query"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormControl>
-                  <Input
-                    autoFocus
-                    placeholder={`Search${activeShortcut.name ? ` ${activeShortcut.name}` : ""}...`}
-                    className="flex-1 border-0 shadow-none text-foreground placeholder:text-foreground text-lg px-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-transparent bg-transparent!"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+          <div className="border-border bg-accent/20 dark:bg-input/20 flex h-16 items-stretch border">
+            <div className="border-border flex w-16 shrink-0 items-center justify-center border-r">
+              <div className="flex size-7 items-center justify-center">{activeShortcut.icon}</div>
+            </div>
 
-          <Button
-            type="submit"
-            size="icon"
-            className={cn(
-              "rounded-full",
-              "bg-foreground text-background",
-              "transition-transform hover:scale-105",
-              "focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-custom-accent",
-            )}
-          >
-            <ArrowRight className="size-5" />
-            <span className="sr-only">Search</span>
-          </Button>
+            <FormField
+              name="query"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormControl>
+                    <Input
+                      autoFocus
+                      placeholder={`Search${activeShortcut.name ? ` ${activeShortcut.name}` : ""}...`}
+                      className="text-foreground placeholder:text-muted-foreground h-full w-full rounded-none border-0 bg-transparent! px-4 text-lg shadow-none focus-visible:border-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <button
+              type="submit"
+              className="border-border hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background flex w-16 shrink-0 items-center justify-center border-l transition-colors focus:outline-none"
+            >
+              <ArrowRight className="size-5" />
+              <span className="sr-only">Search</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="text-muted-foreground mt-3 flex items-center justify-between font-mono text-xs tracking-[0.12em] uppercase">
+          <span className="flex items-center gap-1.5">
+            <span className="text-muted-foreground/60">Engine ·</span>
+            <span className="text-foreground/80 transition-colors duration-200">
+              {activeShortcut.name ?? "Search"}
+            </span>
+          </span>
+          <span className="text-muted-foreground/60">↵ to search</span>
         </div>
       </form>
     </Form>

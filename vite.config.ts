@@ -6,10 +6,11 @@ import remarkDirective from "remark-directive";
 import remarkDirectiveRehype from "remark-directive-rehype";
 import { defineConfig } from "vite";
 import { VitePWA as pwa } from "vite-plugin-pwa";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { instantRedirect } from "./src/plugins/instant-redirect";
 import { remarkGenerateToC } from "./src/plugins/remark-generate-toc";
 
 export default defineConfig({
+  resolve: { tsconfigPaths: true },
   plugins: [
     tanstack({ target: "react", autoCodeSplitting: true }),
 
@@ -18,8 +19,14 @@ export default defineConfig({
 
     mdx({ remarkPlugins: [remarkDirective, remarkDirectiveRehype, remarkGenerateToC] }),
 
-    tsconfigPaths(),
+    instantRedirect(),
 
-    pwa({ registerType: "autoUpdate" }),
+    pwa({
+      registerType: "autoUpdate",
+      manifest: false,
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,woff2,svg,png,ico,webmanifest}"],
+      },
+    }),
   ],
 });

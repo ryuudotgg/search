@@ -1,147 +1,110 @@
-import type { BlockContent, Root } from "mdast";
+import { valueToEstree } from "estree-util-value-to-estree";
+import type { TableOfContents } from "fumadocs-core/toc";
+import type { Root } from "mdast";
+import type { MdxjsEsm } from "mdast-util-mdxjs-esm";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-interface Heading {
+export type MDXDepth = 1 | 2 | 3 | 4 | 5 | 6;
+
+interface DirectiveResult {
   id: string;
   index: string;
   text: string;
-  children?: Heading[];
+  depth: MDXDepth;
 }
 
-export type MDXDepth = 1 | 2 | 3 | 4 | 5 | 6;
-
-function visitCallback(node: Record<string, unknown>) {
+function visitCallback(node: Record<string, unknown>): DirectiveResult | undefined {
   if (!node.attributes) return;
   if (typeof node.attributes !== "object") return;
 
-  if (!("id" in node.attributes)) return;
-  if (!("index" in node.attributes)) return;
-  if (!("text" in node.attributes)) return;
+  const attrs = node.attributes as Record<string, unknown>;
+  if (!("id" in attrs)) return;
+  if (!("index" in attrs)) return;
+  if (!("text" in attrs)) return;
 
-  const result = {
-    id: String(node.attributes.id),
-    index: String(node.attributes.index),
-    text: String(node.attributes.text),
-  };
+  const id = String(attrs.id);
+  const index = String(attrs.index);
+  const text = String(attrs.text);
 
-  if (result.index === "0") return result;
+  if (index === "0") return { id, index, text, depth: 2 };
 
-  if (!("children" in node)) return result;
-  if (!Array.isArray(node.children)) return result;
+  if (!("children" in node)) return { id, index, text, depth: 2 };
+  if (!Array.isArray(node.children)) return { id, index, text, depth: 2 };
 
-  let depth = (result.index.split(".").length + 1) as MDXDepth;
+  let depth = (index.split(".").length + 1) as MDXDepth;
   if (depth > 4) depth = 4;
+
+  delete attrs.id;
+  const data = node.data as Record<string, unknown> | undefined;
+  if (data?.hProperties && typeof data.hProperties === "object") {
+    delete (data.hProperties as Record<string, unknown>).id;
+  }
 
   node.children.unshift({
     type: "heading",
     depth,
+    data: { hProperties: { id } },
     children: [
       {
         type: "text",
-        value: `${result.index}${depth === 2 ? "." : ""} ${result.text}`,
+        value: `${index}${depth === 2 ? "." : ""} ${text}`,
       },
     ],
   });
 
-  if (depth > 3) return;
-
-  return result;
+  return { id, index, text, depth };
 }
 
-function createList(headings: Heading[], level = 0): BlockContent {
+function buildTocExport(toc: TableOfContents): MdxjsEsm {
   return {
-    type: "mdxJsxFlowElement",
-    name: "ol",
-    attributes: [
-      {
-        type: "mdxJsxAttribute",
-        name: "className",
-        value: "mt-3 flex flex-col gap-3",
-      },
-    ],
-    children: headings.map((heading) => {
-      return {
-        type: "mdxJsxFlowElement",
-        name: "li",
-        attributes: [],
-        children: [
+    type: "mdxjsEsm",
+    value: "",
+    data: {
+      estree: {
+        type: "Program",
+        sourceType: "module",
+        body: [
           {
-            type: "containerDirective",
-            name: "tocItem",
-            data: { hName: "tocItem", hProperties: { id: heading.id, level } },
-            children: [
-              {
-                type: "text",
-                value: heading.text,
-              } as unknown as BlockContent,
-            ],
+            type: "ExportNamedDeclaration",
+            specifiers: [],
+            source: null,
+            attributes: [],
+            declaration: {
+              type: "VariableDeclaration",
+              kind: "const",
+              declarations: [
+                {
+                  type: "VariableDeclarator",
+                  id: { type: "Identifier", name: "toc" },
+                  init: valueToEstree(toc),
+                },
+              ],
+            },
           },
-          ...(heading.children?.length ? [createList(heading.children, level + 1)] : []),
         ],
-      };
-    }),
+      },
+    },
   };
 }
 
 export const remarkGenerateToC: Plugin<[], Root> = () => {
   return (tree: Root) => {
-    const headings: Heading[] = [];
+    const toc: TableOfContents = [];
 
     visit(tree, "containerDirective", (node) => {
       const result = visitCallback(node as unknown as Record<string, unknown>);
+      if (!result) return;
+      if (result.depth > 3) return;
 
-      if (result) {
-        const parentIndex = result.index.split(".").slice(0, -1).join(".");
-        const parent = headings.find((heading) => heading.index === parentIndex);
-
-        if (parent) {
-          parent.children ??= [];
-          parent.children.push(result);
-        } else headings.push(result);
-      }
+      toc.push({
+        title: result.text,
+        url: `#${result.id}`,
+        depth: result.depth,
+      });
     });
 
-    const toc = {
-      type: "containerDirective",
-      name: "toc",
-      data: { hName: "toc", hProperties: { length: headings.length } },
-      children: [
-        {
-          type: "mdxJsxFlowElement",
-          name: "div",
-          attributes: [
-            {
-              type: "mdxJsxAttribute",
-              name: "className",
-              value: "sticky top-4 h-full max-h-[calc(100svh-4rem)] overflow-y-scroll p-10 md:p-12",
-            },
-          ],
-          children: [
-            {
-              type: "mdxJsxFlowElement",
-              name: "div",
-              attributes: [
-                {
-                  type: "mdxJsxAttribute",
-                  name: "className",
-                  value: "mb-[1.375rem] h-auto font-semibold",
-                },
-              ],
-              children: [
-                {
-                  type: "text",
-                  value: "On this page",
-                } as unknown as BlockContent,
-              ],
-            },
-            createList(headings),
-          ],
-        },
-      ],
-    } satisfies Root["children"][0];
-
-    tree.children.unshift(toc);
+    tree.children.unshift(buildTocExport(toc));
 
     return tree;
   };
