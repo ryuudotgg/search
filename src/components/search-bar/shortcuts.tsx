@@ -1,6 +1,7 @@
 import { Search } from "lucide-react";
 import type { ReactNode } from "react";
 import { commonBangs } from "../../lib/common-bangs";
+import { getDefaultBang } from "../../lib/resolve";
 import { ChatGPT } from "./icons/ChatGPT";
 import { Claude } from "./icons/Claude";
 import { DuckDuckGo } from "./icons/DuckDuckGo";
@@ -45,4 +46,7 @@ export const shortcuts: Shortcut[] = [
   fallbackShortcut,
 ];
 
-export const defaultShortcut: Shortcut = shortcuts[0] ?? fallbackShortcut;
+export function getDefaultShortcut(): Shortcut {
+  const tag = getDefaultBang();
+  return shortcuts.find((shortcut) => shortcut.tag === tag) ?? fallbackShortcut;
+}

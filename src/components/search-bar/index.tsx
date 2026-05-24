@@ -7,7 +7,7 @@ import { Form, FormControl, FormField, FormItem } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
 import { z } from "zod";
 import { Cross } from "../cross";
-import { defaultShortcut, fallbackShortcut, type Shortcut, shortcuts } from "./shortcuts";
+import { fallbackShortcut, getDefaultShortcut, type Shortcut, shortcuts } from "./shortcuts";
 
 const searchSchema = z.object({
   query: z.string().trim().min(1, "You need to enter a query."),
@@ -18,6 +18,7 @@ type SearchSchema = z.infer<typeof searchSchema>;
 export function SearchBar() {
   const navigate = useNavigate();
 
+  const [defaultShortcut] = useState(getDefaultShortcut);
   const [activeShortcut, setActiveShortcut] = useState<Shortcut>(defaultShortcut);
 
   const form = useForm<SearchSchema>({
@@ -36,7 +37,7 @@ export function SearchBar() {
       : undefined;
 
     setActiveShortcut(shortcutMatch ?? fallbackShortcut);
-  }, [query]);
+  }, [query, defaultShortcut]);
 
   const onSubmit = (values: SearchSchema) => {
     navigate({ to: "/search", search: { q: values.query } });
