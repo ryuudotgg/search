@@ -12,8 +12,7 @@
     "types": ["node", "vite/client"],
     "rootDirs": ["."],
     "paths": {
-      "~/*": ["./src/*"],
-      "src/*": ["./src/*"]
+      "~/*": ["./src/*"]
     },
 
     /* Bundler/Build Options */

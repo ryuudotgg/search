@@ -1,3 +1,6 @@
+import "@fontsource-variable/geist/index.css";
+import "@fontsource-variable/geist-mono/index.css";
+
 import "../styles/globals.css";
 
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
@@ -11,7 +14,6 @@ export const Route = createRootRoute({
       <HeadContent />
       <Outlet />
       <Scripts />
-
       <TanStackRouterDevtools />
     </>
   ),

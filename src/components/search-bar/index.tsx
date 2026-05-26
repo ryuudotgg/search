@@ -1,13 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
 import { z } from "zod";
+import { Form, FormControl, FormField, FormItem } from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { useDefaultBang } from "~/hooks/use-default-bang";
 import { Cross } from "../cross";
-import { fallbackShortcut, getDefaultShortcut, type Shortcut, shortcuts } from "./shortcuts";
+import { fallbackShortcut, type Shortcut, shortcuts } from "./shortcuts";
 
 const searchSchema = z.object({
   query: z.string().trim().min(1, "You need to enter a query."),
@@ -18,7 +20,11 @@ type SearchSchema = z.infer<typeof searchSchema>;
 export function SearchBar() {
   const navigate = useNavigate();
 
-  const [defaultShortcut] = useState(getDefaultShortcut);
+  const [defaultTag] = useDefaultBang();
+  const defaultShortcut = useMemo(
+    () => shortcuts.find((shortcut) => shortcut.tag === defaultTag) ?? fallbackShortcut,
+    [defaultTag],
+  );
   const [activeShortcut, setActiveShortcut] = useState<Shortcut>(defaultShortcut);
 
   const form = useForm<SearchSchema>({
@@ -78,7 +84,7 @@ export function SearchBar() {
               type="submit"
               className="border-border hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background flex w-16 shrink-0 items-center justify-center border-l transition-colors focus:outline-none"
             >
-              <ArrowRight className="size-5" />
+              <HugeiconsIcon icon={ArrowRight01Icon} className="size-5" />
               <span className="sr-only">Search</span>
             </button>
           </div>

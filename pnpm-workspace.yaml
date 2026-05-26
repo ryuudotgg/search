@@ -53,11 +53,8 @@ catalogs:
     react-hook-form: ^7.71.2
     "@hookform/resolvers": ^5.2.2
 
-    # UI Components & Libraries
-    "@radix-ui/react-dropdown-menu": ^2.1.16
-    "@radix-ui/react-label": ^2.1.8
-    "@radix-ui/react-slot": ^1.2.4
-    "@radix-ui/react-tooltip": ^1.2.8
+    # UI Primitives (Base UI)
+    "@base-ui/react": ^1.5.0
 
     # Theming
     next-themes: ^0.4.6
@@ -74,11 +71,13 @@ catalogs:
 
   # ===== FONTS =====
   fonts:
-    geist: ^1.7.1
+    "@fontsource-variable/geist": ^5.2.9
+    "@fontsource-variable/geist-mono": ^5.2.8
 
   # ===== ICONS =====
   icons:
-    lucide-react: ^1.0.0
+    "@hugeicons/react": ^1.1.6
+    "@hugeicons/core-free-icons": ^4.1.4
 
   # ===== STYLING =====
   style:
