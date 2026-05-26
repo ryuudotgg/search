@@ -1,5 +1,5 @@
 import { useRender } from "@base-ui/react/use-render";
-import { type ComponentProps, createContext, use, useId } from "react";
+import { type ComponentProps, createContext, type ElementType, use, useId } from "react";
 import {
   Controller,
   type ControllerProps,
@@ -90,7 +90,7 @@ function FormLabel({ className, ...props }: ComponentProps<typeof Label>) {
   );
 }
 
-function FormControl({ render }: useRender.ComponentProps<"input">) {
+function FormControl<T extends ElementType = "input">({ render }: useRender.ComponentProps<T>) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
 
   return useRender({
