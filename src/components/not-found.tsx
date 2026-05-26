@@ -11,9 +11,7 @@ export function NotFound() {
           It looks like the page you're looking for doesn't exist.
         </p>
         <div className="pt-4">
-          <Button asChild>
-            <Link to="/">Go Home</Link>
-          </Button>
+          <Button render={<Link to="/" />}>Go Home</Button>
         </div>
       </div>
     </div>

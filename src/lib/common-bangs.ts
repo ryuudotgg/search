@@ -21,6 +21,36 @@ export const commonBangs: Bang[] = [
     t: "g",
   },
   {
+    n: "Bing",
+    d: "www.bing.com",
+    u: "https://www.bing.com/search?q={{{s}}}",
+    t: "bing",
+  },
+  {
+    n: "Brave",
+    d: "search.brave.com",
+    u: "https://search.brave.com/search?q={{{s}}}",
+    t: "brave",
+  },
+  {
+    n: "Startpage",
+    d: "www.startpage.com",
+    u: "https://www.startpage.com/sp/search?query={{{s}}}",
+    t: "startpage",
+  },
+  {
+    n: "Ecosia",
+    d: "www.ecosia.org",
+    u: "https://www.ecosia.org/search?q={{{s}}}",
+    t: "ecosia",
+  },
+  {
+    n: "Yandex",
+    d: "yandex.com",
+    u: "https://yandex.com/search/?text={{{s}}}",
+    t: "yandex",
+  },
+  {
     n: "YouTube",
     d: "www.youtube.com",
     u: "https://www.youtube.com/results?search_query={{{s}}}",
@@ -69,3 +99,6 @@ export const commonBangs: Bang[] = [
     t: "reddit",
   },
 ];
+
+const SEARCH_ENGINE_TAGS = new Set(["ddg", "g", "bing", "brave", "startpage", "ecosia", "yandex"]);
+export const searchEngines: Bang[] = commonBangs.filter((bang) => SEARCH_ENGINE_TAGS.has(bang.t));

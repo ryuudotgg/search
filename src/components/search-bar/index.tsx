@@ -1,13 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
 import { z } from "zod";
+import { Form, FormControl, FormField, FormItem } from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { useDefaultBang } from "~/hooks/use-default-bang";
 import { Cross } from "../cross";
-import { fallbackShortcut, getDefaultShortcut, type Shortcut, shortcuts } from "./shortcuts";
+import { fallbackShortcut, type Shortcut, shortcuts } from "./shortcuts";
 
 const searchSchema = z.object({
   query: z.string().trim().min(1, "You need to enter a query."),
@@ -18,25 +20,23 @@ type SearchSchema = z.infer<typeof searchSchema>;
 export function SearchBar() {
   const navigate = useNavigate();
 
-  const [defaultShortcut] = useState(getDefaultShortcut);
-  const [activeShortcut, setActiveShortcut] = useState<Shortcut>(defaultShortcut);
-
+  const [defaultTag] = useDefaultBang();
+  const defaultShortcut = useMemo(
+    () => shortcuts.find((shortcut) => shortcut.tag === defaultTag) ?? fallbackShortcut,
+    [defaultTag],
+  );
   const form = useForm<SearchSchema>({
     resolver: zodResolver(searchSchema),
     defaultValues: { query: "" },
   });
 
   const query = form.watch("query");
-  useEffect(() => {
+  const activeShortcut = useMemo<Shortcut>(() => {
     const match = query.match(/!(\S+)/i);
-    if (!match) return setActiveShortcut(defaultShortcut);
+    if (!match) return defaultShortcut;
 
     const bangCandidate = match[1]?.toLowerCase();
-    const shortcutMatch = bangCandidate
-      ? shortcuts.find((shortcut) => shortcut.tag === bangCandidate)
-      : undefined;
-
-    setActiveShortcut(shortcutMatch ?? fallbackShortcut);
+    return shortcuts.find((shortcut) => shortcut.tag === bangCandidate) ?? fallbackShortcut;
   }, [query, defaultShortcut]);
 
   const onSubmit = (values: SearchSchema) => {
@@ -62,14 +62,16 @@ export function SearchBar() {
               control={form.control}
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormControl>
-                    <Input
-                      autoFocus
-                      placeholder={`Search${activeShortcut.name ? ` ${activeShortcut.name}` : ""}...`}
-                      className="text-foreground placeholder:text-muted-foreground h-full w-full rounded-none border-0 bg-transparent! px-4 text-lg shadow-none focus-visible:border-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                      {...field}
-                    />
-                  </FormControl>
+                  <FormControl
+                    render={
+                      <Input
+                        autoFocus
+                        placeholder={`Search${activeShortcut.name ? ` ${activeShortcut.name}` : ""}...`}
+                        className="text-foreground placeholder:text-muted-foreground h-full w-full rounded-none border-0 bg-transparent! px-4 text-lg shadow-none focus-visible:border-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                        {...field}
+                      />
+                    }
+                  />
                 </FormItem>
               )}
             />
@@ -78,7 +80,7 @@ export function SearchBar() {
               type="submit"
               className="border-border hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background flex w-16 shrink-0 items-center justify-center border-l transition-colors focus:outline-none"
             >
-              <ArrowRight className="size-5" />
+              <HugeiconsIcon icon={ArrowRight01Icon} className="size-5" />
               <span className="sr-only">Search</span>
             </button>
           </div>

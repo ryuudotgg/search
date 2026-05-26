@@ -2,8 +2,8 @@
   "$schema": "https://ui.shadcn.com/schema.json",
   "tsx": true,
   "rsc": false,
-  "style": "new-york",
-  "iconLibrary": "lucide",
+  "style": "base-sera",
+  "iconLibrary": "hugeicons",
   "aliases": {
     "components": "~/components",
     "hooks": "~/hooks",
@@ -14,8 +14,12 @@
   "tailwind": {
     "baseColor": "neutral",
     "config": "",
-    "css": "src/app/index.css",
+    "css": "src/styles/globals.css",
     "cssVariables": true,
     "prefix": ""
-  }
+  },
+  "rtl": false,
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {}
 }

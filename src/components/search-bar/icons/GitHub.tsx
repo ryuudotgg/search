@@ -1,4 +1,4 @@
-import { useTheme } from "src/components/theme-provider";
+import { useTheme } from "~/components/theme-provider";
 
 export function GitHub({ className }: { className?: string }) {
   const { theme } = useTheme();
