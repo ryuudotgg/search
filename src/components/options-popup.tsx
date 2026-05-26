@@ -44,7 +44,12 @@ export function OptionsPopup() {
       <PopoverContent align="end" className="w-64">
         <div className="flex flex-col gap-2">
           <SectionLabel>Default Engine</SectionLabel>
-          <Select value={defaultTag} onValueChange={(value) => setDefaultTag(value as string)}>
+          <Select
+            value={defaultTag}
+            onValueChange={(value) => {
+              if (value) setDefaultTag(value);
+            }}
+          >
             <SelectTrigger className="w-full">
               <span className="flex items-center gap-2">
                 <EngineGlyph tag={defaultTag} />

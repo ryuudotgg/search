@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem } from "~/components/ui/form";
@@ -25,24 +25,18 @@ export function SearchBar() {
     () => shortcuts.find((shortcut) => shortcut.tag === defaultTag) ?? fallbackShortcut,
     [defaultTag],
   );
-  const [activeShortcut, setActiveShortcut] = useState<Shortcut>(defaultShortcut);
-
   const form = useForm<SearchSchema>({
     resolver: zodResolver(searchSchema),
     defaultValues: { query: "" },
   });
 
   const query = form.watch("query");
-  useEffect(() => {
+  const activeShortcut = useMemo<Shortcut>(() => {
     const match = query.match(/!(\S+)/i);
-    if (!match) return setActiveShortcut(defaultShortcut);
+    if (!match) return defaultShortcut;
 
     const bangCandidate = match[1]?.toLowerCase();
-    const shortcutMatch = bangCandidate
-      ? shortcuts.find((shortcut) => shortcut.tag === bangCandidate)
-      : undefined;
-
-    setActiveShortcut(shortcutMatch ?? fallbackShortcut);
+    return shortcuts.find((shortcut) => shortcut.tag === bangCandidate) ?? fallbackShortcut;
   }, [query, defaultShortcut]);
 
   const onSubmit = (values: SearchSchema) => {
@@ -68,14 +62,16 @@ export function SearchBar() {
               control={form.control}
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormControl>
-                    <Input
-                      autoFocus
-                      placeholder={`Search${activeShortcut.name ? ` ${activeShortcut.name}` : ""}...`}
-                      className="text-foreground placeholder:text-muted-foreground h-full w-full rounded-none border-0 bg-transparent! px-4 text-lg shadow-none focus-visible:border-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                      {...field}
-                    />
-                  </FormControl>
+                  <FormControl
+                    render={
+                      <Input
+                        autoFocus
+                        placeholder={`Search${activeShortcut.name ? ` ${activeShortcut.name}` : ""}...`}
+                        className="text-foreground placeholder:text-muted-foreground h-full w-full rounded-none border-0 bg-transparent! px-4 text-lg shadow-none focus-visible:border-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                        {...field}
+                      />
+                    }
+                  />
                 </FormItem>
               )}
             />

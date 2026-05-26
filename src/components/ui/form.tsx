@@ -1,11 +1,5 @@
-import {
-  type ComponentProps,
-  cloneElement,
-  createContext,
-  type ReactElement,
-  use,
-  useId,
-} from "react";
+import { useRender } from "@base-ui/react/use-render";
+import { type ComponentProps, createContext, use, useId } from "react";
 import {
   Controller,
   type ControllerProps,
@@ -96,13 +90,17 @@ function FormLabel({ className, ...props }: ComponentProps<typeof Label>) {
   );
 }
 
-function FormControl({ children }: { children: ReactElement<Record<string, unknown>> }) {
+function FormControl({ render }: useRender.ComponentProps<"input">) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
 
-  return cloneElement(children, {
-    id: formItemId,
-    "aria-describedby": !error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`,
-    "aria-invalid": !!error,
+  return useRender({
+    render,
+    props: {
+      "data-slot": "form-control",
+      id: formItemId,
+      "aria-describedby": !error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`,
+      "aria-invalid": !!error,
+    },
   });
 }
 
