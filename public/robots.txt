@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://search.ryuu.gg/sitemap.xml
