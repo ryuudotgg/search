@@ -1,7 +1,4 @@
-// @see https://duckduckgo.com/bang.js
-// @note custom bangs absent from DDG's table; merged into ./bangs.ts and resolved by scripts/pick-common-bangs.ts; add or edit custom entries here.
-
-import type { Bang } from "./bangs";
+import type { Bang } from "./index";
 
 export const customBangs: Bang[] = [
   {

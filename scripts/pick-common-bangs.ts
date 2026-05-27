@@ -1,6 +1,6 @@
 // Generates src/lib/common-bangs.ts (the bangs inlined for instant redirects).
 //
-// Every tag in ALLOWLIST is resolved from the merged table (src/lib/bangs.ts),
+// Every tag in ALLOWLIST is resolved from the merged table (bangs/index.ts),
 // so inline behavior always matches the React fallback. NAME_OVERRIDES tidies a
 // couple of display names; the first SEARCH_ENGINE_TAGS power the options-popup
 // default-engine dropdown and must stay a fixed set.
@@ -9,7 +9,7 @@
 
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { bangs } from "../src/lib/bangs";
+import { bangs } from "../bangs";
 
 interface Bang {
   n?: string;

@@ -2,7 +2,7 @@
   "name": "search",
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "bun scripts/generate-bangs.ts && vite build",
     "check": "biome check .",
     "check:fix": "bun run check --write",
     "dev": "vite",
