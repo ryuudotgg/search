@@ -1,11 +1,12 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { cache, useEffect } from "react";
 import { z } from "zod";
-import type { Bang } from "../lib/common-bangs";
 import { commonBangs } from "../lib/common-bangs";
 import { buildBangUrl, getDefaultBang, parseBangTag } from "../lib/resolve";
 
-const loadFullBangs = cache(async (): Promise<Bang[]> => {
+type ResolvedBang = { d: string; u: string; t: string; a?: string[] };
+
+const loadFullBangs = cache(async (): Promise<ResolvedBang[]> => {
   const { bangs } = await import("../lib/bangs");
   return bangs;
 });
@@ -20,13 +21,14 @@ export const Route = createFileRoute("/search")({
   head: () => ({ meta: [{ title: "Redirecting..." }] }),
 });
 
-async function getBangFromQuery(query: string): Promise<Bang> {
+async function getBangFromQuery(query: string): Promise<ResolvedBang> {
   const tag = parseBangTag(query) ?? getDefaultBang();
 
-  let bang = commonBangs.find((b) => b.t === tag);
+  let bang: ResolvedBang | undefined = commonBangs.find((b) => b.t === tag);
   if (!bang) {
     const fullBangs = await loadFullBangs();
-    bang = fullBangs.find((b) => b.t === tag) ?? commonBangs[0] ?? fullBangs[0];
+    bang =
+      fullBangs.find((b) => b.t === tag || b.a?.includes(tag)) ?? commonBangs[0] ?? fullBangs[0];
   }
 
   if (!bang) throw new Error("Missing Bang");

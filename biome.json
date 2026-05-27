@@ -6,7 +6,8 @@
       "!**/.gitignore",
       "!**/dist",
       "!**/node_modules",
-      "!**/src/lib/bangs.ts",
+      "!**/src/lib/ddg-bangs.ts",
+      "!**/src/lib/common-bangs.ts",
       "!**/src/routeTree.gen.ts"
     ]
   },

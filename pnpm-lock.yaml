@@ -48,6 +48,9 @@ catalogs:
     '@hugeicons/react':
       specifier: ^1.1.6
       version: 1.1.6
+    '@ridemountainpig/svgl-react':
+      specifier: ^1.0.17
+      version: 1.0.17
   lint:
     '@biomejs/biome':
       specifier: ^2.0.0
@@ -169,6 +172,9 @@ importers:
       '@mdx-js/rollup':
         specifier: catalog:build
         version: 3.1.1(rollup@4.60.4)
+      '@ridemountainpig/svgl-react':
+        specifier: catalog:icons
+        version: 1.0.17(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@tanstack/react-router':
         specifier: catalog:prod
         version: 1.170.8(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -1051,6 +1057,12 @@ packages:
 
   '@oxc-project/types@0.132.0':
     resolution: {integrity: sha512-FESMOxil5Se014ui/Eq8fT5uHJo6nIRwH0PfJrZJXs6Gek3ZVFOrpUv3YIZT20m+extU98Hg1Ym72U58rlsxUQ==}
+
+  '@ridemountainpig/svgl-react@1.0.17':
+    resolution: {integrity: sha512-395fAAjPOaZmQ5sQ3Uz6tqiiixwAzB7OarooKF988NbrJ9OzyrqfKm6ZqQ7AA1ptHGQSSKbSdpnGUKL4WA6bYA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
 
   '@rolldown/binding-android-arm64@1.0.2':
     resolution: {integrity: sha512-ZS4D1JPGn/MYQN/SYDWftIE/nVsM8j/AFOYEzAoOE2O3NktQOZru+/vYXGbR/qtdLdIfGCP0lcoJiYVzsEz+iQ==}
@@ -4517,6 +4529,11 @@ snapshots:
   '@orama/orama@3.1.18': {}
 
   '@oxc-project/types@0.132.0': {}
+
+  '@ridemountainpig/svgl-react@1.0.17(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+    dependencies:
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
 
   '@rolldown/binding-android-arm64@1.0.2':
     optional: true

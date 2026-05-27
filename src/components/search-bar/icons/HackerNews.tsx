@@ -1,0 +1,12 @@
+export function HackerNews({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={className}>
+      <title>Hacker News</title>
+      <path
+        fill="#f60"
+        d="M76.8 0h358.4C477.6 0 512 34.4 512 76.8v358.4c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 512 0 477.6 0 435.2V76.8C0 34.4 34.4 0 76.8 0"
+      />
+      <path fill="#fff" d="M124 91h51l81 162 81-164h51L276 293v136h-40V293z" />
+    </svg>
+  );
+}
