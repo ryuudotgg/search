@@ -55,9 +55,6 @@ const ALLOWLIST: string[] = [
   "perplexity",
   "hf",
 
-  // Search Verticals
-  "image",
-
   // Reference / Dictionaries
   "w",
   "wa",
@@ -83,7 +80,6 @@ const ALLOWLIST: string[] = [
   "crates",
   "rust",
   "py",
-  "cpp",
   "php",
   "devdocs",
   "dh",
