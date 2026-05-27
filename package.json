@@ -18,6 +18,7 @@
     "@hugeicons/core-free-icons": "catalog:icons",
     "@hugeicons/react": "catalog:icons",
     "@mdx-js/rollup": "catalog:build",
+    "@ridemountainpig/svgl-react": "catalog:icons",
     "@tanstack/react-router": "catalog:prod",
     "@tanstack/react-router-devtools": "catalog:prod",
     "@vitejs/plugin-react": "catalog:build",

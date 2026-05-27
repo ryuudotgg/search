@@ -4,7 +4,12 @@ import { commonBangs } from "../lib/common-bangs";
 // Common-bang and default searches resolve here before React loads, pulled from
 // the `commonBangs` table; anything else falls through to the /search route.
 export function instantRedirect(): Plugin {
-  const bangs = Object.fromEntries(commonBangs.map((bang) => [bang.t, { d: bang.d, u: bang.u }]));
+  const bangs = Object.fromEntries(
+    commonBangs.flatMap((bang) => {
+      const target = { d: bang.d, u: bang.u };
+      return [bang.t, ...(bang.a ?? [])].map((tag) => [tag, target]);
+    }),
+  );
 
   const script = `
 (function () {

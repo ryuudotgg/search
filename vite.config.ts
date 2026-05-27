@@ -11,6 +11,7 @@ import { remarkGenerateToC } from "./src/plugins/remark-generate-toc";
 
 export default defineConfig({
   resolve: { tsconfigPaths: true },
+  build: { chunkSizeWarningLimit: 2000 },
   plugins: [
     tanstack({ target: "react", autoCodeSplitting: true }),
 
@@ -26,6 +27,14 @@ export default defineConfig({
       manifest: false,
       workbox: {
         globPatterns: ["**/*.{js,css,html,woff2,svg,png,ico,webmanifest}"],
+        globIgnores: ["**/bangs-*.js"],
+        runtimeCaching: [
+          {
+            urlPattern: /\/assets\/bangs-.*\.js$/,
+            handler: "CacheFirst",
+            options: { cacheName: "bangs-data" },
+          },
+        ],
       },
     }),
   ],

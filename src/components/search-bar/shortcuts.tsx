@@ -13,15 +13,12 @@ export interface Shortcut {
 
 const fallbackIcon = <HugeiconsIcon icon={Search01Icon} className="size-6" />;
 
-// Shown while typing an unrecognized bang.
 export const fallbackShortcut: Shortcut = { tag: "other", name: undefined, icon: fallbackIcon };
-
 export const shortcuts: Shortcut[] = [
-  ...commonBangs.map((bang) => ({
-    tag: bang.t,
-    name: bang.n,
-    icon: engineIcons[bang.t] ?? fallbackIcon,
-  })),
+  ...commonBangs.flatMap((bang) => {
+    const icon = engineIcons[bang.t] ?? fallbackIcon;
+    return [bang.t, ...(bang.a ?? [])].map((tag) => ({ tag, name: bang.n, icon }));
+  }),
   fallbackShortcut,
 ];
 
