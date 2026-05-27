@@ -182,15 +182,15 @@ const seen = new Set<string>();
 const missing = new Set<string>();
 
 for (const tag of ALLOWLIST) {
-  if (seen.has(tag)) continue;
-
   const entry = byTag.get(tag);
   if (!entry?.d) {
     missing.add(tag);
     continue;
   }
 
-  seen.add(tag);
+  if (seen.has(entry.t)) continue;
+  seen.add(entry.t);
+
   result.push(
     clean({ n: NAME_OVERRIDES[tag] ?? entry.s, d: entry.d, u: entry.u, t: entry.t, a: entry.a }),
   );
