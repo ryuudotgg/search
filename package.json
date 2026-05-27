@@ -21,6 +21,7 @@
     "@ridemountainpig/svgl-react": "catalog:icons",
     "@tanstack/react-router": "catalog:prod",
     "@tanstack/react-router-devtools": "catalog:prod",
+    "@tanstack/react-virtual": "catalog:prod",
     "@vitejs/plugin-react": "catalog:build",
     "class-variance-authority": "catalog:utils",
     "clsx": "catalog:utils",

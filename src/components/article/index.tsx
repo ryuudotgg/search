@@ -30,7 +30,7 @@ export default function Article({ title, lastUpdatedAt, toc, children }: Props) 
           <Cross corner="br" />
           <div
             aria-hidden
-            className="text-muted-foreground/70 pointer-events-none absolute top-3 right-4 text-right font-mono text-[10px] leading-[1.5] tracking-[0.12em] uppercase"
+            className="text-muted-foreground/70 pointer-events-none absolute top-3 right-4 text-right font-mono text-[10px] leading-normal tracking-[0.12em] uppercase"
           >
             <div>Doc · Privacy-Notice</div>
             <div>Rev · {isoDate}</div>
@@ -45,6 +45,7 @@ export default function Article({ title, lastUpdatedAt, toc, children }: Props) 
                 "--smd-grid-columns": 10,
                 "--md-grid-columns": 12,
                 "--sm-height": "calc(var(--width) / var(--grid-columns) * var(--grid-rows))",
+                minHeight: 54,
               } as React.CSSProperties
             }
           />
@@ -109,6 +110,7 @@ export default function Article({ title, lastUpdatedAt, toc, children }: Props) 
                 "--smd-grid-columns": 10,
                 "--md-grid-columns": 12,
                 "--sm-height": "calc(var(--width) / var(--grid-columns) * var(--grid-rows))",
+                minHeight: 54,
               } as React.CSSProperties
             }
           >
@@ -127,6 +129,7 @@ export default function Article({ title, lastUpdatedAt, toc, children }: Props) 
                   "--smd-cell-columns": 8,
                   "--md-cell-columns": 10,
                   padding: "0px",
+                  minHeight: 54,
                 } as React.CSSProperties
               }
             >

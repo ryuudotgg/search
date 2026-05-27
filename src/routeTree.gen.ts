@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as BangsRouteImport } from './routes/bangs'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SearchRoute = SearchRouteImport.update({
@@ -23,6 +24,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BangsRoute = BangsRouteImport.update({
+  id: '/bangs',
+  path: '/bangs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bangs': typeof BangsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bangs': typeof BangsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bangs': typeof BangsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy' | '/search'
+  fullPaths: '/' | '/bangs' | '/privacy' | '/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy' | '/search'
-  id: '__root__' | '/' | '/privacy' | '/search'
+  to: '/' | '/bangs' | '/privacy' | '/search'
+  id: '__root__' | '/' | '/bangs' | '/privacy' | '/search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BangsRoute: typeof BangsRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bangs': {
+      id: '/bangs'
+      path: '/bangs'
+      fullPath: '/bangs'
+      preLoaderRoute: typeof BangsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BangsRoute: BangsRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
 }

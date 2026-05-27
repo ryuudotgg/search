@@ -16,6 +16,10 @@ export function Footer() {
           Ryuu
         </a>
         {" · "}
+        <Link to="/bangs" className="hover:text-foreground transition-colors">
+          Bangs
+        </Link>
+        {" · "}
         <Link to="/privacy" className="hover:text-foreground transition-colors">
           Privacy Policy
         </Link>

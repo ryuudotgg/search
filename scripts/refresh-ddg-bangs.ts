@@ -11,6 +11,17 @@ import { fileURLToPath } from "node:url";
 const SOURCE = "https://duckduckgo.com/bang.js";
 
 const PRIMARY_OVERRIDES = new Set(["maps", "bing", "reddit", "define", "devdocs", "ecosia"]);
+
+const isDuckDuckGo = (domain: string) => {
+  const d = domain.trim().toLowerCase();
+  return (
+    /(^|\.)duckduckgo\.com$/.test(d) ||
+    /(^|\.)duckgobang\.com$/.test(d) ||
+    /(^|\.)duck\.co$/.test(d) ||
+    /(^|\.)duckduckhack\.com$/.test(d) ||
+    (d.endsWith(".onion") && d.startsWith("duckduckgo"))
+  );
+};
 const URL_OVERRIDES: Record<string, { d: string; u: string }> = {
   startpage: { d: "www.startpage.com", u: "https://www.startpage.com/sp/search?query={{{s}}}" },
   yandex: { d: "yandex.com", u: "https://yandex.com/search/?text={{{s}}}" },
@@ -40,13 +51,6 @@ const cleaned = raw.map((b): RawBang => {
   if (override) {
     d = override.d;
     u = override.u;
-  }
-
-  // DDG-native bangs: no domain + a relative URL that resolves on duckduckgo.com.
-  if (!d) {
-    d = "duckduckgo.com";
-    sc = "Search (DDG)";
-    if (u.startsWith("/")) u = `https://duckduckgo.com${u}`;
   }
 
   // Prefer https everywhere (upgrade the scheme, leave embedded URLs alone).
@@ -80,6 +84,7 @@ const merged = [...byUrl.values()]
 
     return aliases.length ? { ...primary, a: aliases } : primary;
   })
+  .filter((b) => b.t === "ddg" || (b.d && !isDuckDuckGo(b.d)))
   // Highest relevance first, then alphabetical within ties.
   .sort((a, b) => b.r - a.r || a.t.localeCompare(b.t));
 
