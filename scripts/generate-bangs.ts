@@ -11,12 +11,8 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { shardFor } from "~/lib/shard";
 import { bangs } from "../bangs";
-
-const shardFor = (tag: string): string => {
-  const first = tag[0];
-  return first && first >= "a" && first <= "z" ? first : "_";
-};
 
 const shards = new Map<string, Record<string, [string, string]>>();
 const index: [string, string, string][] = [];

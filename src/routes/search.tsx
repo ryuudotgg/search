@@ -3,24 +3,25 @@ import { useEffect } from "react";
 import { z } from "zod";
 import { commonBangs } from "../lib/common-bangs";
 import { buildBangUrl, getDefaultBang, parseBangTag } from "../lib/resolve";
+import { shardFor } from "../lib/shard";
 
 type ResolvedBang = { d: string; u: string };
 type Shard = Record<string, [u: string, d: string]>;
 
 const shardCache = new Map<string, Promise<Shard>>();
 
-function shardFor(tag: string): string {
-  const first = tag[0];
-  return first && first >= "a" && first <= "z" ? first : "_";
-}
-
 function loadShard(shard: string): Promise<Shard> {
   let pending = shardCache.get(shard);
   if (!pending) {
-    pending = fetch(`/bangs/${shard}.json`).then((res) => {
-      if (!res.ok) throw new Error(`Shard ${shard}: ${res.status}`);
-      return res.json() as Promise<Shard>;
-    });
+    pending = fetch(`/bangs/${shard}.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Shard ${shard}: ${res.status}`);
+        return res.json() as Promise<Shard>;
+      })
+      .catch((error) => {
+        shardCache.delete(shard);
+        throw error;
+      });
 
     shardCache.set(shard, pending);
   }
