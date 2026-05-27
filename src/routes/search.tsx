@@ -1,15 +1,32 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
-import { cache, useEffect } from "react";
+import { useEffect } from "react";
 import { z } from "zod";
 import { commonBangs } from "../lib/common-bangs";
 import { buildBangUrl, getDefaultBang, parseBangTag } from "../lib/resolve";
 
-type ResolvedBang = { d: string; u: string; t: string; a?: string[] };
+type ResolvedBang = { d: string; u: string };
+type Shard = Record<string, [u: string, d: string]>;
 
-const loadFullBangs = cache(async (): Promise<ResolvedBang[]> => {
-  const { bangs } = await import("../lib/bangs");
-  return bangs;
-});
+const shardCache = new Map<string, Promise<Shard>>();
+
+function shardFor(tag: string): string {
+  const first = tag[0];
+  return first && first >= "a" && first <= "z" ? first : "_";
+}
+
+function loadShard(shard: string): Promise<Shard> {
+  let pending = shardCache.get(shard);
+  if (!pending) {
+    pending = fetch(`/bangs/${shard}.json`).then((res) => {
+      if (!res.ok) throw new Error(`Shard ${shard}: ${res.status}`);
+      return res.json() as Promise<Shard>;
+    });
+
+    shardCache.set(shard, pending);
+  }
+
+  return pending;
+}
 
 const searchSchema = z.object({
   q: z.string().trim().optional(),
@@ -24,16 +41,20 @@ export const Route = createFileRoute("/search")({
 async function getBangFromQuery(query: string): Promise<ResolvedBang> {
   const tag = parseBangTag(query) ?? getDefaultBang();
 
-  let bang: ResolvedBang | undefined = commonBangs.find((b) => b.t === tag || b.a?.includes(tag));
-  if (!bang) {
-    const fullBangs = await loadFullBangs();
-    bang =
-      fullBangs.find((b) => b.t === tag || b.a?.includes(tag)) ?? commonBangs[0] ?? fullBangs[0];
+  const common = commonBangs.find((b) => b.t === tag || b.a?.includes(tag));
+  if (common) return common;
+
+  try {
+    const entry = (await loadShard(shardFor(tag)))[tag];
+    if (entry) return { u: entry[0], d: entry[1] };
+  } catch (error) {
+    console.error("Long Tail Bang Fetch Failed:", error);
   }
 
-  if (!bang) throw new Error("Missing Bang");
+  const fallback = commonBangs[0];
+  if (!fallback) throw new Error("Missing Bang");
 
-  return bang;
+  return fallback;
 }
 
 function redirectToHome() {

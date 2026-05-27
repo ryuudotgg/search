@@ -8,6 +8,9 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useDefaultBang } from "~/hooks/use-default-bang";
+import { useWarmConnection } from "~/hooks/use-warm-connection";
+import { commonBangs } from "~/lib/common-bangs";
+import { parseBangTag } from "~/lib/resolve";
 import { Cross } from "../cross";
 import { fallbackShortcut, type Shortcut, shortcuts } from "./shortcuts";
 
@@ -38,6 +41,13 @@ export function SearchBar() {
     const bangCandidate = match[1]?.toLowerCase();
     return shortcuts.find((shortcut) => shortcut.tag === bangCandidate) ?? fallbackShortcut;
   }, [query, defaultShortcut]);
+
+  const targetDomain = useMemo(() => {
+    const tag = parseBangTag(query) ?? defaultTag;
+    return commonBangs.find((bang) => bang.t === tag || bang.a?.includes(tag))?.d;
+  }, [query, defaultTag]);
+
+  useWarmConnection(targetDomain);
 
   const onSubmit = (values: SearchSchema) => {
     navigate({ to: "/search", search: { q: values.query } });

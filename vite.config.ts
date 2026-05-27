@@ -1,6 +1,6 @@
 import mdx from "@mdx-js/rollup";
 import tailwindcss from "@tailwindcss/vite";
-import { TanStackRouterVite as tanstack } from "@tanstack/router-plugin/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import remarkDirective from "remark-directive";
 import remarkDirectiveRehype from "remark-directive-rehype";
@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: { tsconfigPaths: true },
   build: { chunkSizeWarningLimit: 2000 },
   plugins: [
-    tanstack({ target: "react", autoCodeSplitting: true }),
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
 
     react(),
     tailwindcss(),
@@ -27,12 +27,11 @@ export default defineConfig({
       manifest: false,
       workbox: {
         globPatterns: ["**/*.{js,css,html,woff2,svg,png,ico,webmanifest}"],
-        globIgnores: ["**/bangs-*.js"],
         runtimeCaching: [
           {
-            urlPattern: /\/assets\/bangs-.*\.js$/,
-            handler: "CacheFirst",
-            options: { cacheName: "bangs-data" },
+            urlPattern: /\/bangs\/.+\.json$/,
+            handler: "StaleWhileRevalidate",
+            options: { cacheName: "bang-shards" },
           },
         ],
       },
