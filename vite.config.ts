@@ -6,8 +6,8 @@ import remarkDirective from "remark-directive";
 import remarkDirectiveRehype from "remark-directive-rehype";
 import { defineConfig } from "vite";
 import { VitePWA as pwa } from "vite-plugin-pwa";
-import { instantRedirect } from "~/plugins/instant-redirect";
-import { remarkGenerateToC } from "~/plugins/remark-generate-toc";
+import { instantRedirect } from "./src/plugins/instant-redirect";
+import { remarkGenerateToC } from "./src/plugins/remark-generate-toc";
 
 export default defineConfig({
   resolve: { tsconfigPaths: true },
