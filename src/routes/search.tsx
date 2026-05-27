@@ -24,7 +24,7 @@ export const Route = createFileRoute("/search")({
 async function getBangFromQuery(query: string): Promise<ResolvedBang> {
   const tag = parseBangTag(query) ?? getDefaultBang();
 
-  let bang: ResolvedBang | undefined = commonBangs.find((b) => b.t === tag);
+  let bang: ResolvedBang | undefined = commonBangs.find((b) => b.t === tag || b.a?.includes(tag));
   if (!bang) {
     const fullBangs = await loadFullBangs();
     bang =

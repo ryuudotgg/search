@@ -172,8 +172,8 @@ const clean = (b: Bang): Bang => ({
 
 const byTag = new Map<string, (typeof bangs)[number]>();
 for (const b of bangs) {
-  byTag.set(b.t, b);
-  for (const alias of b.a ?? []) byTag.set(alias, b);
+  if (!byTag.has(b.t)) byTag.set(b.t, b);
+  for (const alias of b.a ?? []) if (!byTag.has(alias)) byTag.set(alias, b);
 }
 
 const result: Bang[] = [];
