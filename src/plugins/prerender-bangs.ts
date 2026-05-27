@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import type { Plugin } from "vite";
 import { commonBangs } from "../lib/common-bangs";
@@ -54,6 +54,19 @@ ${rows}
 </div>`;
 }
 
+function replaceOnce(
+  html: string,
+  pattern: string | RegExp,
+  replacement: string,
+  what: string,
+): string {
+  const found = typeof pattern === "string" ? html.includes(pattern) : pattern.test(html);
+  if (!found)
+    throw new Error(`prerender-bangs: "${what}" not found in index.html; the shell drifted.`);
+
+  return html.replace(pattern, replacement);
+}
+
 export function prerenderBangs(): Plugin {
   let dist = "dist";
 
@@ -63,17 +76,36 @@ export function prerenderBangs(): Plugin {
     configResolved(config) {
       dist = resolve(config.root, config.build.outDir);
     },
-    async writeBundle() {
-      const shell = await readFile(join(dist, "index.html"), "utf8");
+    async writeBundle(_options, bundle) {
+      const indexAsset = bundle["index.html"];
+      if (indexAsset?.type !== "asset") return;
 
-      const html = shell
-        .replace(/<title>[^<]*<\/title>/, `<title>${PAGE_TITLE}</title>`)
-        .replace(
-          /<meta\s+name="description"[^>]*>/,
-          `<meta name="description" content="${PAGE_DESCRIPTION}" />`,
-        )
-        .replace("</head>", `<link rel="canonical" href="${ORIGIN}/bangs" /></head>`)
-        .replace(/<div id="?root"?>\s*<\/div>/, `<div id="root">${renderRoot()}</div>`);
+      let html =
+        typeof indexAsset.source === "string"
+          ? indexAsset.source
+          : Buffer.from(indexAsset.source).toString("utf8");
+
+      html = replaceOnce(html, /<title>[^<]*<\/title>/, `<title>${PAGE_TITLE}</title>`, "<title>");
+      html = replaceOnce(
+        html,
+        /<meta\s+name="description"[^>]*>/,
+        `<meta name="description" content="${PAGE_DESCRIPTION}" />`,
+        "<meta name=description>",
+      );
+
+      html = replaceOnce(
+        html,
+        "</head>",
+        `<link rel="canonical" href="${ORIGIN}/bangs" /></head>`,
+        "</head>",
+      );
+
+      html = replaceOnce(
+        html,
+        /<div id="?root"?>\s*<\/div>/,
+        `<div id="root">${renderRoot()}</div>`,
+        "<div id=root>",
+      );
 
       await mkdir(join(dist, "bangs"), { recursive: true });
       await writeFile(join(dist, "bangs", "index.html"), html);
