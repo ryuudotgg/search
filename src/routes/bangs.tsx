@@ -45,8 +45,10 @@ function filterBangs(rows: BangEntry[], query: string): BangEntry[] {
 
   for (const row of rows) {
     const [tag, name] = row;
-    if (tag.startsWith(q)) prefix.push(row);
-    else if (tag.includes(q) || name.toLowerCase().includes(q)) rest.push(row);
+    const lowerTag = tag.toLowerCase();
+
+    if (lowerTag.startsWith(q)) prefix.push(row);
+    else if (lowerTag.includes(q) || name.toLowerCase().includes(q)) rest.push(row);
   }
 
   return prefix.concat(rest);
@@ -139,6 +141,8 @@ function Bangs() {
             <div className="border-border text-muted-foreground flex h-full items-center justify-center border font-mono text-xs tracking-[0.12em] uppercase">
               Couldn't load the directory · refresh to retry
             </div>
+          ) : !rows ? (
+            <div className="border-border h-full border" />
           ) : (
             <BangList rows={filtered} className="border-border h-full border" />
           )}
