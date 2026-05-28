@@ -58,6 +58,7 @@ function filterBangs(rows: BangEntry[], query: string): BangEntry[] {
 
 function Bangs() {
   const [rows, setRows] = useState<BangEntry[]>(seedRows);
+  const [failed, setFailed] = useState(false);
 
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
@@ -66,7 +67,7 @@ function Bangs() {
     let active = true;
     loadIndex()
       .then((data) => active && setRows(data))
-      .catch(() => {});
+      .catch(() => active && setFailed(true));
 
     return () => {
       active = false;
@@ -116,10 +117,12 @@ function Bangs() {
               <span className="text-muted-foreground/60">Directory ·</span>
               <span className="text-foreground/80">{rows.length.toLocaleString()} bangs</span>
             </span>
-            <span className="text-muted-foreground/60">
-              {isFiltering
-                ? `${filtered.length.toLocaleString()} ${filtered.length === 1 ? "match" : "matches"}`
-                : "Type to filter"}
+            <span className={failed ? "text-destructive" : "text-muted-foreground/60"}>
+              {failed
+                ? "Couldn't load full directory"
+                : isFiltering
+                  ? `${filtered.length.toLocaleString()} ${filtered.length === 1 ? "match" : "matches"}`
+                  : "Type to filter"}
             </span>
           </div>
         </header>
