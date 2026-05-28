@@ -59,7 +59,7 @@
     "vite": "catalog:build",
     "vitest": "catalog:dev"
   },
-  "packageManager": "pnpm@11.3.0",
+  "packageManager": "pnpm@11.4.0",
   "engines": {
     "node": "24.16.0",
     "pnpm": "^11.0.0"
