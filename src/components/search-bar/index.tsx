@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ComboboxList, useComboboxAnchor } from "~/components/ui/combobox";
@@ -38,16 +38,56 @@ export function SearchBar() {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const anchorRef = useComboboxAnchor();
+
+  const overlayRef = useRef<HTMLFormElement | null>(null);
   const highlightedRef = useRef<BangSuggestion | null>(null);
 
   const [caret, setCaret] = useState(0);
 
-  const [dismissed, setDismissed] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(min-width: 768px)").matches) inputRef.current?.focus();
   }, []);
+
+  // Size the mobile takeover to the visual viewport so it sits above the keyboard instead
+  // of overflowing behind it.
+  useLayoutEffect(() => {
+    if (!focused) return;
+
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
+    const mobile = window.matchMedia("(max-width: 767px)");
+    const sync = () => {
+      const el = overlayRef.current;
+      if (!el) return;
+
+      if (mobile.matches) {
+        el.style.height = `${viewport.height}px`;
+        el.style.top = `${viewport.offsetTop}px`;
+      } else {
+        el.style.height = "";
+        el.style.top = "";
+      }
+    };
+
+    sync();
+    viewport.addEventListener("resize", sync);
+    viewport.addEventListener("scroll", sync);
+
+    return () => {
+      viewport.removeEventListener("resize", sync);
+      viewport.removeEventListener("scroll", sync);
+
+      const el = overlayRef.current;
+      if (el) {
+        el.style.height = "";
+        el.style.top = "";
+      }
+    };
+  }, [focused]);
 
   const query = form.watch("query");
 
@@ -131,11 +171,12 @@ export function SearchBar() {
   return (
     <Form {...form}>
       <form
+        ref={overlayRef}
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(
           "w-full max-w-xl",
           focused &&
-            "max-md:fixed max-md:inset-0 max-md:z-40 max-md:m-0 max-md:flex max-md:max-w-none max-md:flex-col max-md:bg-background max-md:p-0",
+            "max-md:fixed max-md:inset-0 max-md:z-40 max-md:m-0 max-md:flex max-md:max-w-none max-md:flex-col max-md:overflow-hidden max-md:bg-background max-md:p-0",
         )}
       >
         {focused && (
