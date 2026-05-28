@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ComboboxList, useComboboxAnchor } from "~/components/ui/combobox";
@@ -53,17 +53,18 @@ export function SearchBar() {
 
   // Size the mobile takeover to the visual viewport so it sits above the keyboard instead
   // of overflowing behind it.
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!focused) return;
 
     const viewport = window.visualViewport;
     if (!viewport) return;
 
+    const mobile = window.matchMedia("(max-width: 767px)");
     const sync = () => {
       const el = overlayRef.current;
       if (!el) return;
 
-      if (window.matchMedia("(max-width: 767px)").matches) {
+      if (mobile.matches) {
         el.style.height = `${viewport.height}px`;
         el.style.top = `${viewport.offsetTop}px`;
       } else {
