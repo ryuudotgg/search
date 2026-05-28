@@ -8,6 +8,7 @@ import { Cross } from "../components/cross";
 import { Footer } from "../components/footer";
 import { TopBar } from "../components/top-bar";
 import { Input } from "../components/ui/input";
+import { commonBangs } from "../lib/common-bangs";
 
 export const Route = createFileRoute("/bangs")({
   component: () => (
@@ -18,8 +19,9 @@ export const Route = createFileRoute("/bangs")({
   head: () => ({ meta: [{ title: "Bang Directory — Ryuu's Search" }] }),
 });
 
-let indexPromise: Promise<BangEntry[]> | null = null;
+const seedRows: BangEntry[] = commonBangs.map((bang) => [bang.t, bang.n ?? bang.t, bang.d]);
 
+let indexPromise: Promise<BangEntry[]> | null = null;
 function loadIndex(): Promise<BangEntry[]> {
   if (!indexPromise) {
     indexPromise = fetch("/bangs/index.json")
@@ -55,11 +57,10 @@ function filterBangs(rows: BangEntry[], query: string): BangEntry[] {
 }
 
 function Bangs() {
-  const [rows, setRows] = useState<BangEntry[] | null>(null);
-
-  const [query, setQuery] = useState("");
+  const [rows, setRows] = useState<BangEntry[]>(seedRows);
   const [failed, setFailed] = useState(false);
 
+  const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
 
   useEffect(() => {
@@ -67,16 +68,13 @@ function Bangs() {
     loadIndex()
       .then((data) => active && setRows(data))
       .catch(() => active && setFailed(true));
+
     return () => {
       active = false;
     };
   }, []);
 
-  const filtered = useMemo(
-    () => (rows ? filterBangs(rows, deferredQuery) : []),
-    [rows, deferredQuery],
-  );
-
+  const filtered = useMemo(() => filterBangs(rows, deferredQuery), [rows, deferredQuery]);
   const isFiltering = deferredQuery.trim().length > 0;
 
   return (
@@ -117,16 +115,14 @@ function Bangs() {
           <div className="text-muted-foreground flex w-full items-center justify-between font-mono text-xs tracking-[0.12em] uppercase">
             <span className="flex items-center gap-1.5">
               <span className="text-muted-foreground/60">Directory ·</span>
-              <span className="text-foreground/80">
-                {rows ? `${rows.length.toLocaleString()} bangs` : "Loading…"}
-              </span>
+              <span className="text-foreground/80">{rows.length.toLocaleString()} bangs</span>
             </span>
-            <span className="text-muted-foreground/60">
-              {rows
-                ? isFiltering
+            <span className={failed ? "text-destructive" : "text-muted-foreground/60"}>
+              {failed
+                ? "Couldn't load full directory"
+                : isFiltering
                   ? `${filtered.length.toLocaleString()} ${filtered.length === 1 ? "match" : "matches"}`
-                  : "Type to filter"
-                : ""}
+                  : "Type to filter"}
             </span>
           </div>
         </header>
@@ -137,15 +133,7 @@ function Bangs() {
           <Cross corner="bl" />
           <Cross corner="br" />
 
-          {failed ? (
-            <div className="border-border text-muted-foreground flex h-full items-center justify-center border font-mono text-xs tracking-[0.12em] uppercase">
-              Couldn't load the directory · refresh to retry
-            </div>
-          ) : !rows ? (
-            <div className="border-border h-full border" />
-          ) : (
-            <BangList rows={filtered} className="border-border h-full border" />
-          )}
+          <BangList rows={filtered} className="border-border h-full border" />
         </div>
       </main>
 

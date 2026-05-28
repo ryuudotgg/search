@@ -7,6 +7,7 @@ import remarkDirectiveRehype from "remark-directive-rehype";
 import { defineConfig } from "vite";
 import { VitePWA as pwa } from "vite-plugin-pwa";
 import { instantRedirect } from "./src/plugins/instant-redirect";
+import { prerenderBangs } from "./src/plugins/prerender-bangs";
 import { remarkGenerateToC } from "./src/plugins/remark-generate-toc";
 
 export default defineConfig({
@@ -36,5 +37,7 @@ export default defineConfig({
         ],
       },
     }),
+
+    prerenderBangs(),
   ],
 });
