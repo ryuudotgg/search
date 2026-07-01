@@ -123,3 +123,6 @@ onlyBuiltDependencies:
 
 allowBuilds:
   sharp: true
+minimumReleaseAgeExclude:
+  # Renovate security update: pnpm@11.9.0
+  - pnpm@11.9.0
