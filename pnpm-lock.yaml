@@ -31,6 +31,9 @@ catalogs:
     unified:
       specifier: ^11.0.5
       version: 11.0.5
+    vitest:
+      specifier: ^4.0.0
+      version: 4.1.9
   fonts:
     '@fontsource-variable/geist':
       specifier: ^5.2.9
@@ -39,9 +42,9 @@ catalogs:
       specifier: ^5.2.8
       version: 5.2.8
   icons:
-    '@hugeicons/core-free-icons':
-      specifier: ^4.1.4
-      version: 4.2.0
+    '@hugeicons/react':
+      specifier: ^1.1.6
+      version: 1.1.9
     '@ridemountainpig/svgl-react':
       specifier: ^1.0.17
       version: 1.0.17
@@ -68,9 +71,15 @@ catalogs:
     '@hookform/resolvers':
       specifier: ^5.2.2
       version: 5.4.0
+    '@tanstack/react-router':
+      specifier: ^1.120.11
+      version: 1.170.16
     '@tanstack/react-router-devtools':
       specifier: ^1.120.11
       version: 1.167.0
+    '@tanstack/react-virtual':
+      specifier: ^3.13.26
+      version: 3.14.4
     estree-util-value-to-estree:
       specifier: ^3.5.0
       version: 3.5.0
@@ -86,6 +95,9 @@ catalogs:
     react-dom:
       specifier: ^19.2.4
       version: 19.2.7
+    react-hook-form:
+      specifier: ^7.71.2
+      version: 7.80.0
     remark-directive:
       specifier: ^4.0.0
       version: 4.0.0
@@ -153,7 +165,7 @@ importers:
         version: 5.4.0(react-hook-form@7.80.0(react@19.2.7))
       '@hugeicons/core-free-icons':
         specifier: catalog:icons
-        version: 4.2.0
+        version: 4.2.2
       '@hugeicons/react':
         specifier: catalog:icons
         version: 1.1.9(react@19.2.7)
@@ -985,8 +997,8 @@ packages:
     peerDependencies:
       react-hook-form: ^7.55.0
 
-  '@hugeicons/core-free-icons@4.2.0':
-    resolution: {integrity: sha512-V1G/Ph9TbmEow+pKnupZRWQjdORR/TGGr3JVRZOWkomdJ/5N6GgLuKPgBDs7G0kZ0//9LL34AGOUzWe3K+umNA==}
+  '@hugeicons/core-free-icons@4.2.2':
+    resolution: {integrity: sha512-fjQW3p6cwoJmwK3oCnV8Z3PC5sHihDvr2jkAHax8cxqp62GaV/D7B/Rnao+JwicW8fmLZUQ6QrzWfoyMFOEQlQ==}
 
   '@hugeicons/react@1.1.9':
     resolution: {integrity: sha512-O+lWSWjbijoAvMCxn4K2bQWCGN5+mP1y5j+X99j23mXMj+s0X25fs71T6t9YJLaBodwmZdaewD27dzS/PiboQw==}
@@ -4436,7 +4448,7 @@ snapshots:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.80.0(react@19.2.7)
 
-  '@hugeicons/core-free-icons@4.2.0': {}
+  '@hugeicons/core-free-icons@4.2.2': {}
 
   '@hugeicons/react@1.1.9(react@19.2.7)':
     dependencies:
