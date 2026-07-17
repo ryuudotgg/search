@@ -2,7 +2,7 @@ catalogs:
   # ===== BUILD TOOLS =====
   build:
     # Vite & Build Tools
-    vite: ^8.0.0
+    vite: ^8.0.16
     "@vitejs/plugin-react": ^6.0.0
     vite-plugin-pwa: ^1.2.0
 
