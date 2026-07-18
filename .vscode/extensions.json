@@ -1,1 +1,8 @@
-{ "recommendations": ["antfu.pnpm-catalog-lens", "biomejs.biome", "yoavbls.pretty-ts-errors"] }
+{
+  "recommendations": [
+    "antfu.pnpm-catalog-lens",
+    "biomejs.biome",
+    "typescriptteam.native-preview",
+    "yoavbls.pretty-ts-errors"
+  ]
+}
