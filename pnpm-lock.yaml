@@ -98,9 +98,6 @@ catalogs:
     react-dom:
       specifier: ^19.2.4
       version: 19.2.7
-    react-hook-form:
-      specifier: ^7.71.2
-      version: 7.81.0
     remark-directive:
       specifier: ^4.0.0
       version: 4.0.0
@@ -165,7 +162,7 @@ importers:
         version: 5.2.8
       '@hookform/resolvers':
         specifier: catalog:prod
-        version: 5.4.0(react-hook-form@7.81.0(react@19.2.7))
+        version: 5.4.0(react-hook-form@7.82.0(react@19.2.7))
       '@hugeicons/core-free-icons':
         specifier: catalog:icons
         version: 4.2.2
@@ -213,7 +210,7 @@ importers:
         version: 19.2.7(react@19.2.7)
       react-hook-form:
         specifier: catalog:prod
-        version: 7.81.0(react@19.2.7)
+        version: 7.82.0(react@19.2.7)
       remark-directive:
         specifier: catalog:prod
         version: 4.0.0
@@ -3004,8 +3001,8 @@ packages:
     peerDependencies:
       react: ^19.2.7
 
-  react-hook-form@7.81.0:
-    resolution: {integrity: sha512-ocbmr2p5KBMoAfj4WCUvped33lVi1Kd5DuDUvQDnB6VEAacOjPI/jMbtDdbhco4y9ct4xUuCmMY0b/C9L0QHjw==}
+  react-hook-form@7.82.0:
+    resolution: {integrity: sha512-Zw/uFZ2dO+02GHlBn7JFGn8kZJ7LdM33B/0BXOovzFay+CMhf94JMw5BVu+F1tVkUKjNvBuaE3fz5BJhga10Tg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -4583,10 +4580,10 @@ snapshots:
 
   '@fontsource-variable/geist@5.2.9': {}
 
-  '@hookform/resolvers@5.4.0(react-hook-form@7.81.0(react@19.2.7))':
+  '@hookform/resolvers@5.4.0(react-hook-form@7.82.0(react@19.2.7))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.81.0(react@19.2.7)
+      react-hook-form: 7.82.0(react@19.2.7)
 
   '@hugeicons/core-free-icons@4.2.2': {}
 
@@ -6748,7 +6745,7 @@ snapshots:
       react: 19.2.7
       scheduler: 0.27.0
 
-  react-hook-form@7.81.0(react@19.2.7):
+  react-hook-form@7.82.0(react@19.2.7):
     dependencies:
       react: 19.2.7
 
