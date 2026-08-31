@@ -98,9 +98,6 @@ catalogs:
     react-dom:
       specifier: ^19.2.4
       version: 19.2.8
-    react-hook-form:
-      specifier: ^7.71.2
-      version: 7.86.0
     remark-directive:
       specifier: ^4.0.0
       version: 4.0.0
@@ -165,7 +162,7 @@ importers:
         version: 5.3.0
       '@hookform/resolvers':
         specifier: catalog:prod
-        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)
+        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.87.0(react@19.2.8))(zod@4.4.3)
       '@hugeicons/core-free-icons':
         specifier: catalog:icons
         version: 4.3.0
@@ -213,7 +210,7 @@ importers:
         version: 19.2.8(react@19.2.8)
       react-hook-form:
         specifier: catalog:prod
-        version: 7.86.0(react@19.2.8)
+        version: 7.87.0(react@19.2.8)
       remark-directive:
         specifier: catalog:prod
         version: 4.0.0
@@ -3141,8 +3138,8 @@ packages:
     peerDependencies:
       react: ^19.2.8
 
-  react-hook-form@7.86.0:
-    resolution: {integrity: sha512-4kbWJrh5jPZt1+YqVcXcGKffGcXV/XVbozknLh0Yjh0KhpoAkus21TAQhzRYqNwFkkObmnSvRlZZ3GT+ehoIrA==}
+  react-hook-form@7.87.0:
+    resolution: {integrity: sha512-zhFzWvLxNHH+8839OnZcUxgMZw88ah2jZWDWvKWgF3Tpbnd0vKL+dlcuU3nZVWESZQjd81EW8K+wU+cYfYAc0w==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -4705,10 +4702,10 @@ snapshots:
 
   '@fumari/image-size@0.1.0': {}
 
-  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)':
+  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.87.0(react@19.2.8))(zod@4.4.3)':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.86.0(react@19.2.8)
+      react-hook-form: 7.87.0(react@19.2.8)
     optionalDependencies:
       '@standard-schema/spec': 1.1.0
       ajv: 8.20.0
@@ -6909,7 +6906,7 @@ snapshots:
       react: 19.2.8
       scheduler: 0.27.0
 
-  react-hook-form@7.86.0(react@19.2.8):
+  react-hook-form@7.87.0(react@19.2.8):
     dependencies:
       react: 19.2.8
 
