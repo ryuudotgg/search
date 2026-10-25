@@ -6,13 +6,14 @@
       "!**/.gitignore",
       "!**/dist",
       "!**/node_modules",
+      "!pnpm-lock.yaml",
       "!**/bangs/ddg-bangs.ts",
       "!**/src/lib/common-bangs.ts",
       "!**/src/routeTree.gen.ts",
       "!**/public/bangs"
     ]
   },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "linter": { "enabled": true, "rules": { "preset": "recommended" } },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "formatter": {
     "enabled": true,
