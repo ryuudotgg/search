@@ -28,6 +28,8 @@ export default defineConfig({
       manifest: false,
       workbox: {
         globPatterns: ["**/*.{js,css,html,woff2,svg,png,ico,webmanifest}"],
+        globIgnores: ["**/node_modules/**/*", "bangs/*/index.html"],
+        navigateFallbackDenylist: [/^\/bangs\/[^/?]+\/?(?:\?.*)?$/],
         runtimeCaching: [
           {
             urlPattern: /\/bangs\/.+\.json$/,

@@ -16,14 +16,14 @@ export const Route = createFileRoute("/bangs")({
       <Bangs />
     </Layout>
   ),
-  head: () => ({ meta: [{ title: "Bang Directory — Ryuu's Search" }] }),
+  head: () => ({ meta: [{ title: "Bang Directory · Ryuu's Search" }] }),
 });
 
 const seedRows: BangEntry[] = commonBangs.map((bang) => [bang.t, bang.n ?? bang.t, bang.d]);
 
 let indexPromise: Promise<BangEntry[]> | null = null;
 function loadIndex(): Promise<BangEntry[]> {
-  if (!indexPromise) {
+  if (!indexPromise)
     indexPromise = fetch("/bangs/index.json")
       .then((res) => {
         if (!res.ok) throw new Error(`Fetch Failed: ${res.status}`);
@@ -33,7 +33,6 @@ function loadIndex(): Promise<BangEntry[]> {
         indexPromise = null;
         throw error;
       });
-  }
 
   return indexPromise;
 }
@@ -44,11 +43,9 @@ function filterBangs(rows: BangEntry[], query: string): BangEntry[] {
 
   const prefix: BangEntry[] = [];
   const rest: BangEntry[] = [];
-
   for (const row of rows) {
     const [tag, name] = row;
     const lowerTag = tag.toLowerCase();
-
     if (lowerTag.startsWith(q)) prefix.push(row);
     else if (lowerTag.includes(q) || name.toLowerCase().includes(q)) rest.push(row);
   }
@@ -76,7 +73,6 @@ function Bangs() {
 
   const filtered = useMemo(() => filterBangs(rows, deferredQuery), [rows, deferredQuery]);
   const isFiltering = deferredQuery.trim().length > 0;
-
   return (
     <div className="flex h-svh flex-col">
       <TopBar />
