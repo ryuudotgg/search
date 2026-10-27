@@ -2,6 +2,7 @@
   "redirects": [{ "source": "/bangs/", "destination": "/bangs", "permanent": true }],
   "rewrites": [
     { "source": "/bangs", "destination": "/bangs/index.html" },
+    { "source": "/bangs/:tag", "destination": "/bangs/:tag/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
