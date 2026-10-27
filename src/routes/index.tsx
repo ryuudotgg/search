@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { CommandPaletteLauncher } from "~/components/command-palette-launcher";
 import { Layout } from "~/layout";
 import { Footer } from "../components/footer";
 import { Logo } from "../components/logo";
@@ -27,6 +28,10 @@ function Home() {
       </main>
 
       <Footer />
+
+      <div className="absolute bottom-4 left-4 md:right-16 md:left-auto">
+        <CommandPaletteLauncher />
+      </div>
     </div>
   );
 }

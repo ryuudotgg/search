@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear();
 
 export function Footer() {
   return (
-    <footer className="text-muted-foreground w-full py-4 text-center font-mono text-xs tracking-[0.12em] uppercase">
+    <footer className="text-muted-foreground w-full py-4 text-center max-md:pb-16 font-mono text-xs tracking-[0.12em] uppercase">
       <p>
         &copy; {currentYear}{" "}
         <a
