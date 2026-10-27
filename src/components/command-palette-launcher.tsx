@@ -4,7 +4,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 
 import { Button } from "~/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip";
-import { isMacPlatform, isPaletteShortcut, paletteShortcutLabel } from "~/lib/palette-shortcut";
+import { isMacPlatform, paletteKeyAction, paletteShortcutLabel } from "~/lib/palette-shortcut";
 
 const CommandPalette = lazy(() =>
   import("~/components/command-palette").then((module) => ({ default: module.CommandPalette })),
@@ -17,9 +17,12 @@ export function CommandPaletteLauncher() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (!isPaletteShortcut(event, mac)) return;
+      const action = paletteKeyAction(event, mac);
+      if (action === "ignore") return;
 
       event.preventDefault();
+      if (action === "swallow") return;
+
       setMounted(true);
       setOpen((current) => !current);
     };
