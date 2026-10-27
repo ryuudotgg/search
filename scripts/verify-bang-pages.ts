@@ -156,11 +156,11 @@ function checkRouting() {
 }
 
 function checkSitemap() {
-  const sitemapUrl = read("public/robots.txt").match(/^Sitemap:\s*(\S+)$/m)?.[1] ?? "";
-  check(sitemapUrl.startsWith(ORIGIN), "public/robots.txt names no sitemap");
+  const sitemapUrl = URL.parse(read("public/robots.txt").match(/^Sitemap:\s*(\S+)$/m)?.[1] ?? "");
+  check(sitemapUrl?.origin === ORIGIN, "public/robots.txt names no sitemap on the site origin");
 
   const locs = (path: string) => [...read(path).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-  const built = locs(join(DIST, new URL(sitemapUrl).pathname));
+  const built = locs(join(DIST, sitemapUrl.pathname));
   const expected = [
     ...locs("public/sitemap.xml"),
     ...pageBangs.map((bang) => `${ORIGIN}/bangs/${bang.t}`),
