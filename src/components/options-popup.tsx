@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from "~/components/u
 import { useDefaultBang } from "~/hooks/use-default-bang";
 import { searchEngines } from "~/lib/common-bangs";
 
-const themeOptions: { value: Theme; label: string; icon: typeof Sun03Icon }[] = [
+export const themeOptions: { value: Theme; label: string; icon: typeof Sun03Icon }[] = [
   { value: "light", label: "Light", icon: Sun03Icon },
   { value: "dark", label: "Dark", icon: Moon02Icon },
   { value: "system", label: "System", icon: ComputerIcon },
@@ -24,7 +24,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
   );
 }
 
-function EngineGlyph({ tag }: { tag: string }) {
+export function EngineGlyph({ tag }: { tag: string }) {
   return (
     <span className="flex size-4 shrink-0 items-center justify-center">{engineIcons[tag]}</span>
   );
@@ -35,7 +35,6 @@ export function OptionsPopup() {
   const { theme, setTheme } = useTheme();
 
   const current = searchEngines.find((engine) => engine.t === defaultTag);
-
   return (
     <Popover>
       <PopoverTrigger render={<Button variant="outline" size="icon" aria-label="Options" />}>
