@@ -10,7 +10,7 @@
   },
   "osvVulnerabilityAlerts": true,
   "rangeStrategy": "auto",
-  "rebaseWhen": "behind-base-branch",
+  "rebaseWhen": "conflicted",
   "minimumReleaseAge": "1440 minutes",
   "reviewers": ["ryuudotgg"],
   "vulnerabilityAlerts": {
