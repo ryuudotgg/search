@@ -208,7 +208,7 @@ catalogs:
       version: 1.1.10
     '@ridemountainpig/svgl-react':
       specifier: ^1.0.17
-      version: 1.0.18
+      version: 1.0.19
   lint:
     '@biomejs/biome':
       specifier: ^2.0.0
@@ -335,7 +335,7 @@ importers:
         version: 3.1.1(rollup@4.68.3)
       '@ridemountainpig/svgl-react':
         specifier: catalog:icons
-        version: 1.0.18(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 1.0.19(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@tanstack/react-router':
         specifier: catalog:prod
         version: 1.170.46(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1299,8 +1299,8 @@ packages:
   '@oxc-project/types@0.156.0':
     resolution: {integrity: sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw==}
 
-  '@ridemountainpig/svgl-react@1.0.18':
-    resolution: {integrity: sha512-XdhPdkH4OfcEete2lyjHATeTcz/6DCUkh77hys6oB50xGLEq7tYoKxCCk3y5Ozqmw6Zc8j+PA7VfjB1MpPjGMw==}
+  '@ridemountainpig/svgl-react@1.0.19':
+    resolution: {integrity: sha512-Q1pGltuxZFbgEjYJ2GMK3/nwFCMscO7IwgoX2INV+jMXlH003LhzlN79g2fR+tPuzaZuumc580B97uC+CByv7A==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
@@ -4938,7 +4938,7 @@ snapshots:
 
   '@oxc-project/types@0.156.0': {}
 
-  '@ridemountainpig/svgl-react@1.0.18(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@ridemountainpig/svgl-react@1.0.19(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
